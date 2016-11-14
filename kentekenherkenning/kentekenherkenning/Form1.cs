@@ -31,7 +31,7 @@ namespace kentekenherkenning
         //tijdelijke manier om foto's te uploaden
         private void FotoButton_Click(object sender, EventArgs e)
         {
-            image = Image.FromFile(@"C:\Users\ewart\Documents\Kenteken-drone-c-\kenteken.jpg", true);
+            image = Image.FromFile(@FotoLinktextBox.Text, true);
             Invalidate();
         }
     }
