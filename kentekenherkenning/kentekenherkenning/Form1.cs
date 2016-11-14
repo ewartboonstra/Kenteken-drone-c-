@@ -16,6 +16,8 @@ namespace kentekenherkenning
         public Form1()
         {
             InitializeComponent();
+
+            
         }
 
         private void Form1_Load(object sender, EventArgs e)
@@ -33,5 +35,6 @@ namespace kentekenherkenning
             image = Image.FromFile(@FotoLinktextBox.Text, true);
             Invalidate();
         }
+       
     }
 }
