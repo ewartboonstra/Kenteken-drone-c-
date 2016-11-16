@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Drawing;
 using System.Linq;
 using System.Text;
@@ -21,19 +22,45 @@ namespace kentekenherkenning.ImageRecognition
             //check first occurence of a yellow area of 3x3 pixels
             var first3X3Area = new Point(0,0);
 
+
             for (var x = 0; x < BaseBitmap.Width; x++)
             {
+                var found = false;
+
                 for (var y = 0; y < BaseBitmap.Height; y++)
                 {
                     var colorDistance = getDistanceBetweenColors(BaseBitmap.GetPixel(x, y), pivotColor);
 
-                    if (colorDistance > AllowedColorDistance || !is3x3Area(x, y, BaseBitmap)) continue;
-                    first3X3Area.X = x;
-                    first3X3Area.Y = y;
-                    continue;
+                    if (colorDistance < AllowedColorDistance && is3x3Area(x, y, BaseBitmap))
+                    {
+                        first3X3Area.X = x;
+                        first3X3Area.Y = y;
+                        found = true;
+                        break;
+                    };
+                    
+                    
+                }
+
+                if (found)
+                {
+                    break;
                 }
             }
 
+            //from that 3x3 area, scan down for the first time to check when to reach te border (y-length license plate)
+            var height_LicensePlate = 0;
+            for (var y = first3X3Area.Y + 1; y < BaseBitmap.Height; y++)
+            {
+                var colorDistance = getDistanceBetweenColors(BaseBitmap.GetPixel(first3X3Area.X, y), pivotColor);
+                
+                if (colorDistance > AllowedColorDistance)
+                {
+                    height_LicensePlate = y - first3X3Area.Y;
+                }
+            }
+
+            //since we have retrieved the height of the license plate, now we continue by scanning the next column
 
 
         }
