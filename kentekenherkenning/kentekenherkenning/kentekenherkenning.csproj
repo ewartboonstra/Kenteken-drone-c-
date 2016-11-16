@@ -33,8 +33,17 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Emgu.CV">
+      <HintPath>..\CAProcessing\Emgu.CV.dll</HintPath>
+    </Reference>
+    <Reference Include="Emgu.CV.UI">
+      <HintPath>..\CAProcessing\Emgu.CV.UI.dll</HintPath>
+    </Reference>
     <Reference Include="Emgu.CV.World">
       <HintPath>..\..\..\..\..\..\Emgu\emgucv-windesktop 3.1.0.2282\bin\Emgu.CV.World.dll</HintPath>
+    </Reference>
+    <Reference Include="Emgu.Util">
+      <HintPath>..\CAProcessing\Emgu.Util.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -84,6 +93,16 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="ImageRecognition\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\CAProcessing\ContourAnalysisProcessing.csproj">
+      <Project>{38f5165f-094d-42e5-b4aa-7bf299901f5f}</Project>
+      <Name>ContourAnalysisProcessing</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\CA\ContourAnalysis.csproj">
+      <Project>{ddbd6cf7-2367-4084-a609-1b9c1885dc98}</Project>
+      <Name>ContourAnalysis</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
