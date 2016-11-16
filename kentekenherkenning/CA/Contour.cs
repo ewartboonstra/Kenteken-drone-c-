@@ -38,8 +38,7 @@ namespace ContourAnalysisNS
 
         public int Count
         {
-            get
-            {
+            get {
                 return array.Length;
             }
         }
@@ -62,7 +61,7 @@ namespace ContourAnalysisNS
             for (int i = startIndex; i < endIndex; i++)
             {
                 var p1 = points[i];
-                var p2 = i == endIndex - 1 ? points[startIndex] : points[i + 1];
+                var p2 = i==endIndex-1?points[startIndex]:points[i + 1];
                 array[i] = new Complex(p2.X - p1.X, -p2.Y + p1.Y);
 
                 if (p1.X > maxX) maxX = p1.X;
@@ -174,7 +173,7 @@ namespace ContourAnalysisNS
             Contour result = new Contour(maxShift);
             int i = 0;
             int count = Count;
-            while (i < maxShift / 2)
+            while (i < maxShift/2)
             {
                 result.array[i] = Dot(c, i);
                 result.array[maxShift - i - 1] = Dot(c, c.Count - i - 1);
@@ -189,7 +188,7 @@ namespace ContourAnalysisNS
         /// </summary>
         public unsafe Contour AutoCorrelation(bool normalize)
         {
-            int count = Count / 2;
+            int count = Count/2;
             Contour result = new Contour(count);
             fixed (Complex* ptr = &result.array[0])
             {
@@ -197,11 +196,11 @@ namespace ContourAnalysisNS
                 double maxNormaSq = 0;
                 for (int i = 0; i < count; i++)
                 {
-                    *p = Dot(this, i);
-                    double normaSq = (*p).NormaSquare;
-                    if (normaSq > maxNormaSq)
-                        maxNormaSq = normaSq;
-                    p++;
+                     *p = Dot(this, i);
+                     double normaSq = (*p).NormaSquare;
+                     if (normaSq > maxNormaSq)
+                         maxNormaSq = normaSq;
+                     p++;
                 }
                 if (normalize)
                 {
@@ -225,7 +224,7 @@ namespace ContourAnalysisNS
             double max = FindMaxNorma().Norma;
             //normalize
             if (max > double.Epsilon)
-                Scale(1 / max);
+                Scale(1/max);
         }
 
         /// <summary>
@@ -293,7 +292,7 @@ namespace ContourAnalysisNS
                 norm2 += x2.NormaSquare;
             }
 
-            double k = 1d / Math.Sqrt(norm1 * norm2);
+            double k = 1d / Math.Sqrt(norm1*norm2);
             return new Complex(sumA * k, sumB * k);
         }
 
@@ -307,11 +306,11 @@ namespace ContourAnalysisNS
             for (int m = 0; m < count; m++)
             {
                 Complex sum = new Complex(0, 0);
-                double k = -2d * Math.PI * m / count;
+                double k = -2d*Math.PI*m/count;
                 for (int n = 0; n < count; n++)
                     sum += this[n].Rotate(k * n);
 
-                result.array[m] = sum;
+                result.array[m]=sum;
             }
 
             return result;
@@ -368,7 +367,7 @@ namespace ContourAnalysisNS
 
         public Point[] GetPoints(Point startPoint)
         {
-            Point[] result = new Point[Count + 1];
+            Point[] result = new Point[Count+1];
             PointF sum = startPoint;
             result[0] = Point.Round(sum);
             for (int i = 0; i < Count; i++)
@@ -389,7 +388,7 @@ namespace ContourAnalysisNS
                 var v = array[i];
                 sumX += v.a;
                 sumY += v.b;
-                if (sumX > maxX) maxX = sumX;
+                if(sumX>maxX)maxX = sumX;
                 if (sumX < minX) minX = sumX;
                 if (sumY > maxY) maxY = sumY;
                 if (sumY < minY) minY = sumY;
@@ -416,7 +415,7 @@ namespace ContourAnalysisNS
 
         public static Complex FromExp(double r, double angle)
         {
-            return new Complex(r * Math.Cos(angle), r * Math.Sin(angle));
+            return new Complex(r*Math.Cos(angle), r * Math.Sin(angle));
         }
 
         public double Angle
@@ -429,7 +428,7 @@ namespace ContourAnalysisNS
 
         public override string ToString()
         {
-            return a + "+i" + b;
+            return a+"+i"+b;
         }
 
         public double Norma
@@ -444,12 +443,12 @@ namespace ContourAnalysisNS
 
         public static Complex operator +(Complex x1, Complex x2)
         {
-            return new Complex(x1.a + x2.a, x1.b + x2.b);
+            return new Complex(x1.a+x2.a, x1.b+x2.b);
         }
 
         public static Complex operator *(double k, Complex x)
         {
-            return new Complex(k * x.a, k * x.b);
+            return new Complex(k*x.a, k*x.b);
         }
 
         public static Complex operator *(Complex x, double k)
@@ -469,7 +468,7 @@ namespace ContourAnalysisNS
 
         public Complex Rotate(double CosAngle, double SinAngle)
         {
-            return new Complex(CosAngle * a - SinAngle * b, SinAngle * a + CosAngle * b);
+            return new Complex(CosAngle*a-SinAngle*b, SinAngle*a + CosAngle*b);
         }
 
         public Complex Rotate(double Angle)

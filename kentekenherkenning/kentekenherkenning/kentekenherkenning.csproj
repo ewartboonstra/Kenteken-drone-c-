@@ -57,8 +57,6 @@
     </Compile>
     <Compile Include="ImageRecognition\Contour.cs" />
     <Compile Include="ImageRecognition\ImageProcessor.cs" />
-    <Compile Include="ImageRecognition\ImageRecognition.cs" />
-    <Compile Include="ImageRecognition\RechtErvoorVliegRecogn.cs" />
     <Compile Include="ImageRecognition\Template.cs" />
     <Compile Include="ImageRecognition\TemplateFinder.cs" />
     <Compile Include="ImageRecognition\TemplateGenerator.cs" />
