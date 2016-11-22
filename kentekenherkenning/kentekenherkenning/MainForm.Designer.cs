@@ -53,8 +53,6 @@
             this.nudAdaptiveThBlockSize = new System.Windows.Forms.NumericUpDown();
             this.label7 = new System.Windows.Forms.Label();
             this.cbBlur = new System.Windows.Forms.CheckBox();
-            this.label1 = new System.Windows.Forms.Label();
-            this.cbCamResolution = new System.Windows.Forms.ComboBox();
             this.btLoadImage = new System.Windows.Forms.Button();
             this.cbAutoContrast = new System.Windows.Forms.CheckBox();
             this.cbShowAngle = new System.Windows.Forms.CheckBox();
@@ -359,8 +357,6 @@
             this.groupBox1.Controls.Add(this.nudAdaptiveThBlockSize);
             this.groupBox1.Controls.Add(this.label7);
             this.groupBox1.Controls.Add(this.cbBlur);
-            this.groupBox1.Controls.Add(this.label1);
-            this.groupBox1.Controls.Add(this.cbCamResolution);
             this.groupBox1.Controls.Add(this.btLoadImage);
             this.groupBox1.Controls.Add(this.cbAutoContrast);
             this.groupBox1.Location = new System.Drawing.Point(5, 3);
@@ -400,7 +396,7 @@
             this.nudAdaptiveThBlockSize.Size = new System.Drawing.Size(78, 20);
             this.nudAdaptiveThBlockSize.TabIndex = 11;
             this.nudAdaptiveThBlockSize.Value = new decimal(new int[] {
-            4,
+            400,
             0,
             0,
             0});
@@ -427,29 +423,6 @@
             this.cbBlur.Text = "Blur";
             this.cbBlur.UseVisualStyleBackColor = true;
             this.cbBlur.CheckedChanged += new System.EventHandler(this.cbAutoContrast_CheckedChanged);
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(13, 37);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(76, 13);
-            this.label1.TabIndex = 4;
-            this.label1.Text = "Cam resolution";
-            // 
-            // cbCamResolution
-            // 
-            this.cbCamResolution.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cbCamResolution.FormattingEnabled = true;
-            this.cbCamResolution.Items.AddRange(new object[] {
-            "800x600",
-            "640x480",
-            "320x240"});
-            this.cbCamResolution.Location = new System.Drawing.Point(11, 51);
-            this.cbCamResolution.Name = "cbCamResolution";
-            this.cbCamResolution.Size = new System.Drawing.Size(89, 21);
-            this.cbCamResolution.TabIndex = 3;
-            this.cbCamResolution.TextChanged += new System.EventHandler(this.cbAutoContrast_CheckedChanged);
             // 
             // btLoadImage
             // 
@@ -593,8 +566,6 @@
         private System.Windows.Forms.CheckBox cbShowAngle;
         private System.Windows.Forms.CheckBox cbAutoContrast;
         private System.Windows.Forms.Button btLoadImage;
-        private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.ComboBox cbCamResolution;
         private System.Windows.Forms.CheckBox cbAllowAngleMore45;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.NumericUpDown nudMinContourArea;
