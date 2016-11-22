@@ -20,7 +20,7 @@ using ContourAnalysisNS;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.IO;
 
-namespace ContourAnalysisDemo
+namespace kentekenherkenning
 {
     public partial class MainForm : Form
     {
@@ -43,10 +43,10 @@ namespace ContourAnalysisDemo
             //create image preocessor
             processor = new ImageProcessor();
             //load default templates
-            templateFile = AppDomain.CurrentDomain.BaseDirectory + "\\Tahoma.bin";
+            templateFile = AppDomain.CurrentDomain.BaseDirectory + "\\Kenteken.bin";
             LoadTemplates(templateFile);
-            //start capture from cam
-            StartCapture();
+            
+            
             //apply settings
             ApplySettings();
             //
@@ -208,7 +208,7 @@ namespace ContourAnalysisDemo
             {
                 processor.equalizeHist = cbAutoContrast.Checked;
                 showAngle = cbShowAngle.Checked;
-                captureFromCam = cbCaptureFromCam.Checked;
+                captureFromCam = false;
                 btLoadImage.Enabled = !captureFromCam;
                 cbCamResolution.Enabled = captureFromCam;
                 processor.finder.maxRotateAngle = cbAllowAngleMore45.Checked ? Math.PI : Math.PI / 4;
@@ -258,48 +258,9 @@ namespace ContourAnalysisDemo
                 }
         }
 
-        private void btCreateTemplate_Click(object sender, EventArgs e)
-        {
-            if(frame!=null)
-                new ShowContoursForm(processor.templates, processor.samples, frame).ShowDialog();
-        }
+      
+        
 
-        private void btNewTemplates_Click(object sender, EventArgs e)
-        {
-            if (MessageBox.Show("Do you want to create new template database?", "Create new template database", MessageBoxButtons.OKCancel) == System.Windows.Forms.DialogResult.OK)
-                processor.templates.Clear();
-        }
-
-        private void btOpenTemplates_Click(object sender, EventArgs e)
-        {
-            OpenFileDialog ofd = new OpenFileDialog();
-            ofd.Filter = "Templates(*.bin)|*.bin";
-            if (ofd.ShowDialog(this) == System.Windows.Forms.DialogResult.OK)
-            {
-                templateFile = ofd.FileName;
-                LoadTemplates(templateFile);
-            }
-        }
-
-        private void btSaveTemplates_Click(object sender, EventArgs e)
-        {
-            SaveFileDialog sfd = new SaveFileDialog();
-            sfd.Filter = "Templates(*.bin)|*.bin";
-            if (sfd.ShowDialog(this) == System.Windows.Forms.DialogResult.OK)
-            {
-                templateFile = sfd.FileName;
-                SaveTemplates(templateFile);
-            }
-        }
-
-        private void btTemplateEditor_Click(object sender, EventArgs e)
-        {
-            new TemplateEditor(processor.templates).Show();
-        }
-
-        private void btAutoGenerate_Click(object sender, EventArgs e)
-        {
-            new AutoGenerateForm(processor).ShowDialog();
-        }
+     
     }
 }
