@@ -23,20 +23,22 @@ namespace kentekenherkenning
             InsertionSort();
         }
 
-        public void InsertionSort(int[] Tabel)
+        public void InsertionSort()
         {
-            int X;
-            for (int I = 1; I < Tabel.Length; I++)
+            
+            for (int I = 1; I < _characterPlaces.Count; I++)
             {
-                X = Tabel[I];
-                while ((I - 1 >= 0) && (X < Tabel[I - 1]))
+                var newElement = _characterPlaces[I];
+                while ((I - 1 >= 0) && (newElement.Point.X < _characterPlaces[I - 1].Point.X))
                 {
-                    Tabel[I] = Tabel[I - 1];
+                    _characterPlaces[I] = _characterPlaces[I - 1];
                     I--;
                 }
-                Tabel[I] = X;
+                _characterPlaces[I] = newElement;
             }
-        }/*InsertionSort*/
+
+            updateText();
+        }
 
         private void updateText()
         {
