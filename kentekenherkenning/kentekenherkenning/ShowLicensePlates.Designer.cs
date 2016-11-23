@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             this.VisualList = new System.Windows.Forms.CheckedListBox();
-            this.button1 = new System.Windows.Forms.Button();
+            this.SelectAllBtn = new System.Windows.Forms.Button();
             this.button2 = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
@@ -41,15 +41,15 @@
             this.VisualList.Size = new System.Drawing.Size(248, 154);
             this.VisualList.TabIndex = 0;
             // 
-            // button1
+            // SelectAllBtn
             // 
-            this.button1.Location = new System.Drawing.Point(13, 200);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(75, 23);
-            this.button1.TabIndex = 1;
-            this.button1.Text = "Select all";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
+            this.SelectAllBtn.Location = new System.Drawing.Point(13, 200);
+            this.SelectAllBtn.Name = "SelectAllBtn";
+            this.SelectAllBtn.Size = new System.Drawing.Size(75, 23);
+            this.SelectAllBtn.TabIndex = 1;
+            this.SelectAllBtn.Text = "Select all";
+            this.SelectAllBtn.UseVisualStyleBackColor = true;
+            this.SelectAllBtn.Click += new System.EventHandler(this.SelectAllBtn_Click);
             // 
             // button2
             // 
@@ -66,7 +66,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(284, 261);
             this.Controls.Add(this.button2);
-            this.Controls.Add(this.button1);
+            this.Controls.Add(this.SelectAllBtn);
             this.Controls.Add(this.VisualList);
             this.Name = "ShowLicensePlates";
             this.Text = "Discovered License Plates";
@@ -77,7 +77,7 @@
         #endregion
 
         private System.Windows.Forms.CheckedListBox VisualList;
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button SelectAllBtn;
         private System.Windows.Forms.Button button2;
     }
 }

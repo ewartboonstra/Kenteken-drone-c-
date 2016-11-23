@@ -56,11 +56,13 @@ namespace kentekenherkenning
 
         }
 
-
-
-        private void button1_Click(object sender, EventArgs e)
+        private void SelectAllBtn_Click(object sender, EventArgs e)
         {
-
+            for (int i = 0; i < VisualList.Items.Count; i++)
+            {
+                 VisualList.SetItemChecked(i, true);
+            }
+               
         }
     }
 }
