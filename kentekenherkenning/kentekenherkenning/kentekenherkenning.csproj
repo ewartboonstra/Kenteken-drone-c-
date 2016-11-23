@@ -55,7 +55,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ImageRecognition\ImageRecognition.cs" />
+    <Compile Include="LicensePlate.cs" />
     <Compile Include="MainForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -64,6 +64,12 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ShowLicensePlates.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ShowLicensePlates.Designer.cs">
+      <DependentUpon>ShowLicensePlates.cs</DependentUpon>
+    </Compile>
     <EmbeddedResource Include="MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>
     </EmbeddedResource>
@@ -76,6 +82,9 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="ShowLicensePlates.resx">
+      <DependentUpon>ShowLicensePlates.cs</DependentUpon>
+    </EmbeddedResource>
     <None Include="Kenteken.bin" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>

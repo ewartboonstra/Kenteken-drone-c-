@@ -11,6 +11,7 @@
 //  Copyright (C) Pavel Torgashov, 2011. 
 
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Windows.Forms;
@@ -25,7 +26,9 @@ namespace kentekenherkenning
     public partial class MainForm : Form
     {
         private Capture _capture;
-        Image<Bgr, Byte> frame;
+
+        private Image<Bgr, Byte> frame;
+            
         ImageProcessor processor;
         Dictionary<string, Image> AugmentedRealityImages = new Dictionary<string, Image>();
 
@@ -33,9 +36,14 @@ namespace kentekenherkenning
         int frameCount = 0;
         int oldFrameCount = 0;
         bool showAngle;
-        int camWidth = 640;
-        int camHeight = 480;
+      
         string templateFile;
+
+        private ShowLicensePlates _licensePlateForm;
+
+        
+        
+        
 
         public MainForm()
         {
@@ -51,6 +59,14 @@ namespace kentekenherkenning
             ApplySettings();
             //
             Application.Idle += new EventHandler(Application_Idle);
+
+            startLicensePlateForm();
+        }
+
+        private void startLicensePlateForm()
+        {
+            _licensePlateForm = new ShowLicensePlates();
+            _licensePlateForm.Show();
         }
 
         private void LoadTemplates(string fileName)
@@ -84,7 +100,7 @@ namespace kentekenherkenning
             try
             {
                 _capture = new Capture();
-                ApplyCamSettings();
+                
             }
             catch (NullReferenceException ex)
             {
@@ -92,19 +108,7 @@ namespace kentekenherkenning
             }
         }
 
-        private void ApplyCamSettings()
-        {
-            try
-            {
-                _capture.SetCaptureProperty(Emgu.CV.CvEnum.CAP_PROP.CV_CAP_PROP_FRAME_WIDTH, camWidth);
-                _capture.SetCaptureProperty(Emgu.CV.CvEnum.CAP_PROP.CV_CAP_PROP_FRAME_HEIGHT, camHeight);
-                cbCamResolution.Text = camWidth + "x" + camHeight;
-            }
-            catch (NullReferenceException ex)
-            {
-                MessageBox.Show(ex.Message);
-            }
-        }
+        
 
         void Application_Idle(object sender, EventArgs e)
         {
@@ -113,6 +117,7 @@ namespace kentekenherkenning
 
         private void ProcessFrame()
         {
+            
             try
             {
                 if (captureFromCam)
@@ -130,6 +135,7 @@ namespace kentekenherkenning
             {
                 Console.WriteLine(ex.Message);
             }
+            
         }
 
         private void tmUpdateState_Tick(object sender, EventArgs e)
@@ -159,9 +165,13 @@ namespace kentekenherkenning
                 if(contour.Total>1)
                 e.Graphics.DrawLines(Pens.Red, contour.ToArray());
             //
+            
+            var processingLicensePlate = new LicensePlate();
             lock (processor.foundTemplates)
-            foreach (FoundTemplateDesc found in processor.foundTemplates)
+                foreach (FoundTemplateDesc found in processor.foundTemplates)
             {
+                
+
                 if (found.template.name.EndsWith(".png") || found.template.name.EndsWith(".jpg"))
                 {
                     DrawAugmentedReality(found, e.Graphics);
@@ -170,14 +180,35 @@ namespace kentekenherkenning
 
                 Rectangle foundRect = found.sample.contour.SourceBoundingRect;
                 Point p1 = new Point((foundRect.Left + foundRect.Right)/2, foundRect.Top);
+
                 string text = found.template.name;
+
+                    //put it in the license plate (made by Julian)
+                    var foundCharacter = new FoundCharacter(p1, text);
+                    processingLicensePlate.Add(foundCharacter);
+
+                    
+
+
                 if (showAngle)
                     text += string.Format("\r\nangle={0:000}°\r\nscale={1:0.0}", 180 * found.angle / Math.PI, found.scale);
                 e.Graphics.DrawRectangle(borderPen, foundRect);
+
+                //text += "-" + testCounter++;    
                 e.Graphics.DrawString(text, font, bgBrush, new PointF(p1.X + 1 - font.Height/3, p1.Y + 1 - font.Height));
                 e.Graphics.DrawString(text, font, foreBrush, new PointF(p1.X - font.Height/3, p1.Y - font.Height));
-            }
+                
+                   
+                }
+
+            //add the license plate to the list (made by Julian)
+            processingLicensePlate.Sort();
+            _licensePlateForm.AddLicensePlate(processingLicensePlate);
+            
+
         }
+
+        
 
         private void DrawAugmentedReality(FoundTemplateDesc found, Graphics gr)
         {
@@ -210,7 +241,7 @@ namespace kentekenherkenning
                 showAngle = cbShowAngle.Checked;
                 captureFromCam = false;
                 btLoadImage.Enabled = !captureFromCam;
-                cbCamResolution.Enabled = captureFromCam;
+                
                 processor.finder.maxRotateAngle = cbAllowAngleMore45.Checked ? Math.PI : Math.PI / 4;
                 processor.minContourArea = (int)nudMinContourArea.Value;
                 processor.minContourLength = (int)nudMinContourLength.Value;
@@ -223,19 +254,7 @@ namespace kentekenherkenning
                 nudMinDefinition.Enabled = processor.noiseFilter;
                 processor.adaptiveThresholdBlockSize = (int)nudAdaptiveThBlockSize.Value;
                 processor.adaptiveThresholdParameter = cbAdaptiveNoiseFilter.Checked?1.5:0.5;
-                //cam resolution
-                string[] parts = cbCamResolution.Text.ToLower().Split('x');
-                if (parts.Length == 2)
-                {
-                    int camWidth = int.Parse(parts[0]);
-                    int camHeight = int.Parse(parts[1]);
-                    if (this.camHeight != camHeight || this.camWidth != camWidth)
-                    {
-                        this.camWidth = camWidth;
-                        this.camHeight = camHeight;
-                        ApplyCamSettings();
-                    }
-                }
+                
             }
             catch(Exception ex)
             {
