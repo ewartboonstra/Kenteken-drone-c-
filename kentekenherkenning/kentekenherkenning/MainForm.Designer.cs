@@ -427,9 +427,9 @@
             // btLoadImage
             // 
             this.btLoadImage.Enabled = false;
-            this.btLoadImage.Location = new System.Drawing.Point(105, 38);
+            this.btLoadImage.Location = new System.Drawing.Point(11, 19);
             this.btLoadImage.Name = "btLoadImage";
-            this.btLoadImage.Size = new System.Drawing.Size(68, 35);
+            this.btLoadImage.Size = new System.Drawing.Size(162, 54);
             this.btLoadImage.TabIndex = 5;
             this.btLoadImage.Text = "Recognize image ...";
             this.btLoadImage.UseVisualStyleBackColor = true;

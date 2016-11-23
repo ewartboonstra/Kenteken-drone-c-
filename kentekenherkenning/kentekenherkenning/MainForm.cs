@@ -27,8 +27,6 @@ namespace kentekenherkenning
     {
         private Capture _capture;
 
-
-
         private Image<Bgr, Byte> frame;
             
         ImageProcessor processor;
@@ -167,7 +165,7 @@ namespace kentekenherkenning
                 if(contour.Total>1)
                 e.Graphics.DrawLines(Pens.Red, contour.ToArray());
             //
-            //var testCounter = 0;
+            
             var processingLicensePlate = new LicensePlate();
             lock (processor.foundTemplates)
                 foreach (FoundTemplateDesc found in processor.foundTemplates)
@@ -185,7 +183,7 @@ namespace kentekenherkenning
 
                 string text = found.template.name;
 
-                    //put it in the license plate
+                    //put it in the license plate (made by Julian)
                     var foundCharacter = new FoundCharacter(p1, text);
                     processingLicensePlate.Add(foundCharacter);
 
@@ -203,6 +201,7 @@ namespace kentekenherkenning
                    
                 }
 
+            //add the license plate to the list (made by Julian)
             processingLicensePlate.Sort();
             _licensePlateForm.AddLicensePlate(processingLicensePlate);
             

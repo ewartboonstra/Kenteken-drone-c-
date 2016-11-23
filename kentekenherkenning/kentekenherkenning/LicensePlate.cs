@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 
 namespace kentekenherkenning
 {
+    //class made by Julian
     public class LicensePlate
     {
         private List<FoundCharacter> _characterPlaces = new List<FoundCharacter>();

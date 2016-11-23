@@ -11,6 +11,7 @@ using System.Windows.Forms;
 
 namespace kentekenherkenning
 {
+    //form made by Julian
     public partial class ShowLicensePlates : Form
     {
         private List<LicensePlate> _licensePlates = new List<LicensePlate>();
