@@ -25,35 +25,24 @@ namespace kentekenherkenning
 
         public void AddLicensePlate(LicensePlate lp)
         {
-            //get (string representation of) last added license plate
-            string lastAdded;
-            try
-            {
-                lastAdded = _licensePlates[_licensePlates.Count - 1].Text;
-            }
-            catch (ArgumentOutOfRangeException)
-            {
-                lastAdded = "";
-            }
-                
-
-            /*check: 
-             * - if it is not the same as the previous added one
-             * - if the length of the license plate is smaller than 10 characters
-             * */
-            if (lastAdded != lp.Text && lp.Text.Length < 10)
-            {
-                _licensePlates.Add(lp);
-
-                //visual part
-                VisualList.Items.Add(lp.Text);
-
-                
-            }
-                
-           
             
+                //check if the license plate is added already
+                var AlreadyAdded = _licensePlates.Find(recordLp => recordLp.Text == lp.Text) != null;
 
+
+                /*check: 
+                 * - if not already added
+                 * - if the length of the license plate is smaller than 10 characters
+                 * */
+                if (!AlreadyAdded && lp.Text.Length < 10)
+                {
+                    _licensePlates.Add(lp);
+
+                    //visual part
+                    VisualList.Items.Add(lp.Text);
+
+
+                }
         }
 
         private void SelectAllBtn_Click(object sender, EventArgs e)
@@ -64,5 +53,27 @@ namespace kentekenherkenning
             }
                
         }
+
+        private void DeleteBtn_Click(object sender, EventArgs e)
+        {
+            
+               for (var i = 0; i < VisualList.CheckedItems.Count;)
+                {
+                    var checkedItem = VisualList.CheckedItems[i];
+                    var text = (string) checkedItem;
+
+                    
+
+                    _licensePlates.RemoveAll(lp => lp.Text == text);
+
+
+                    VisualList.Items.Remove(checkedItem);
+                } 
+            
+                
+          }
+
+       
+        
     }
 }

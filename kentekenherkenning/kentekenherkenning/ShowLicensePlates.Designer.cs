@@ -30,7 +30,7 @@
         {
             this.VisualList = new System.Windows.Forms.CheckedListBox();
             this.SelectAllBtn = new System.Windows.Forms.Button();
-            this.button2 = new System.Windows.Forms.Button();
+            this.DeleteBtn = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // VisualList
@@ -51,21 +51,22 @@
             this.SelectAllBtn.UseVisualStyleBackColor = true;
             this.SelectAllBtn.Click += new System.EventHandler(this.SelectAllBtn_Click);
             // 
-            // button2
+            // DeleteBtn
             // 
-            this.button2.Location = new System.Drawing.Point(95, 199);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(75, 23);
-            this.button2.TabIndex = 2;
-            this.button2.Text = "Delete";
-            this.button2.UseVisualStyleBackColor = true;
+            this.DeleteBtn.Location = new System.Drawing.Point(95, 199);
+            this.DeleteBtn.Name = "DeleteBtn";
+            this.DeleteBtn.Size = new System.Drawing.Size(75, 23);
+            this.DeleteBtn.TabIndex = 2;
+            this.DeleteBtn.Text = "Delete";
+            this.DeleteBtn.UseVisualStyleBackColor = true;
+            this.DeleteBtn.Click += new System.EventHandler(this.DeleteBtn_Click);
             // 
             // ShowLicensePlates
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(284, 261);
-            this.Controls.Add(this.button2);
+            this.Controls.Add(this.DeleteBtn);
             this.Controls.Add(this.SelectAllBtn);
             this.Controls.Add(this.VisualList);
             this.Name = "ShowLicensePlates";
@@ -78,6 +79,6 @@
 
         private System.Windows.Forms.CheckedListBox VisualList;
         private System.Windows.Forms.Button SelectAllBtn;
-        private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.Button DeleteBtn;
     }
 }
