@@ -24,7 +24,7 @@ namespace kentekenherkenning
             socket.Connect($"tcp://{Ip}:{Port}");
 
             //test connection
-//            GetMessage();
+            //            GetMessage();
 
 
         }
@@ -41,7 +41,7 @@ namespace kentekenherkenning
 
         public void GetMessage()
         {
-          ZmqMessage b64 =  socket.ReceiveMessage();
+            ZmqMessage b64 = socket.ReceiveMessage();
             Console.WriteLine(b64);
         }
     }

@@ -223,3 +223,4 @@ kentekenherkenning/kentekenherkenning/lib/clrzmq.dll
 kentekenherkenning/kentekenherkenning/lib/opencv_core220.dll
 kentekenherkenning/kentekenherkenning/lib/opencv_highgui220.dll
 kentekenherkenning/kentekenherkenning/lib/opencv_imgproc220.dll
+kentekenherkenning/kentekenherkenning/kentekenherkenning.csproj

@@ -69,7 +69,7 @@ namespace kentekenherkenning
             s.SetConnection();
 
             //zet de foto  s.isconnected laad de foto in momenteel
-            frame = new Image<Bgr, byte>((Bitmap) Base64ToImage(s.IsConnected()));
+//            frame = new Image<Bgr, byte>((Bitmap) Base64ToImage(s.IsConnected()));
         }
 
         private void startLicensePlateForm()
