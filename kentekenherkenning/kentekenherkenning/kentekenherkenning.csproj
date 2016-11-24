@@ -33,6 +33,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="clrzmq">
+      <HintPath>lib\clrzmq.dll</HintPath>
+    </Reference>
     <Reference Include="Emgu.CV">
       <HintPath>..\CAProcessing\Emgu.CV.dll</HintPath>
     </Reference>
@@ -64,6 +67,7 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ServerConnection.cs" />
     <Compile Include="ShowLicensePlates.cs">
       <SubType>Form</SubType>
     </Compile>
