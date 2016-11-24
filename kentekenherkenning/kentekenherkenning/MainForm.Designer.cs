@@ -530,6 +530,7 @@
             this.Controls.Add(this.ssMain);
             this.Name = "MainForm";
             this.Text = "Contour Analysis Demo";
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.MainForm_FormClosed);
             ((System.ComponentModel.ISupportInitialize)(this.ibMain)).EndInit();
             this.pnSettings.ResumeLayout(false);
             this.pnSettings.PerformLayout();

@@ -36,8 +36,12 @@
     <StartupObject />
   </PropertyGroup>
   <ItemGroup>
+<<<<<<< HEAD
     <Reference Include="clrzmq, Version=3.0.0.0, Culture=neutral, PublicKeyToken=ef95cdc29d237b0d, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
+=======
+    <Reference Include="clrzmq">
+>>>>>>> 8f3de19306ec3fe9f862e88c386ecb2d7b476bee
       <HintPath>lib\clrzmq.dll</HintPath>
     </Reference>
     <Reference Include="Emgu.CV">
