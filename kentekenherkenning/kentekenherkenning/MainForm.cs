@@ -314,9 +314,7 @@ namespace kentekenherkenning
 
         private void MainForm_FormClosed(object sender, FormClosedEventArgs e)
         {
-            _imagelistenerThread.Abort();
             Application.Exit();
-
         }
     }
 }
