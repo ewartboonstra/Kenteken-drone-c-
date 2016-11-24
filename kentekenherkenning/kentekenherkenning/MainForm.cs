@@ -32,7 +32,7 @@ namespace kentekenherkenning
         ImageProcessor processor;
         Dictionary<string, Image> AugmentedRealityImages = new Dictionary<string, Image>();
 
-        bool captureFromCam = true;
+        bool captureFromCam = false;
         int frameCount = 0;
         int oldFrameCount = 0;
         bool showAngle;

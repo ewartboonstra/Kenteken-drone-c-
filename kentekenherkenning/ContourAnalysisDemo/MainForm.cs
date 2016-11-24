@@ -43,7 +43,7 @@ namespace ContourAnalysisDemo
             //create image preocessor
             processor = new ImageProcessor();
             //load default templates
-            templateFile = AppDomain.CurrentDomain.BaseDirectory + "\\Tahoma.bin";
+            templateFile = AppDomain.CurrentDomain.BaseDirectory + "//Kenteken.bin";
             LoadTemplates(templateFile);
             //start capture from cam
             StartCapture();
