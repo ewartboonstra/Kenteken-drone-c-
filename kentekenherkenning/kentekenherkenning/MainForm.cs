@@ -41,7 +41,7 @@ namespace kentekenherkenning
         string templateFile;
 
         private ShowLicensePlates _licensePlateForm;
-
+        private Thread _imagelistenerThread;
         
         
         
@@ -63,8 +63,8 @@ namespace kentekenherkenning
 
             startLicensePlateForm();
 
-            var imagelistenerThread = new Thread(new ThreadStart(runImageListener));
-            imagelistenerThread.Start();
+            _imagelistenerThread = new Thread(new ThreadStart(runImageListener));
+            _imagelistenerThread.Start();
 
         }
 
@@ -312,5 +312,11 @@ namespace kentekenherkenning
             }
         }
 
+        private void MainForm_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            _imagelistenerThread.Abort();
+            Application.Exit();
+
+        }
     }
 }
