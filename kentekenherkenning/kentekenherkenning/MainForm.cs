@@ -32,7 +32,6 @@ namespace kentekenherkenning
         ImageProcessor processor;
         Dictionary<string, Image> AugmentedRealityImages = new Dictionary<string, Image>();
 
-        bool captureFromCam = false;
         int frameCount = 0;
         int oldFrameCount = 0;
         bool showAngle;
@@ -104,21 +103,6 @@ namespace kentekenherkenning
             }
         }
 
-        private void StartCapture()
-        {
-            try
-            {
-                _capture = new Capture();
-                
-            }
-            catch (NullReferenceException ex)
-            {
-                MessageBox.Show(ex.Message);
-            }
-        }
-
-        
-
         void Application_Idle(object sender, EventArgs e)
         {
             ProcessFrame();
@@ -129,11 +113,10 @@ namespace kentekenherkenning
             
             try
             {
-                if (captureFromCam)
-                    frame = _capture.QueryFrame();
                 frameCount++;
                 //
-                processor.ProcessImage(frame);
+                if(frame!= null)
+                    processor.ProcessImage(frame);
                 //
                 if(cbShowBinarized.Checked)
                     ibMain.Image = processor.binarizedFrame;
@@ -151,8 +134,8 @@ namespace kentekenherkenning
         {
             lbFPS.Text = (frameCount - oldFrameCount) + " fps";
             oldFrameCount = frameCount;
-            if (processor.contours!=null)
-                lbContoursCount.Text = "Contours: "+processor.contours.Count;
+            if (processor.contours != null)
+                lbContoursCount.Text = "Contours: " + processor.contours.Count;
             if (processor.foundTemplates != null)
                 lbRecognized.Text = "Recognized contours: " + processor.foundTemplates.Count;
         }
@@ -248,8 +231,7 @@ namespace kentekenherkenning
             {
                 processor.equalizeHist = cbAutoContrast.Checked;
                 showAngle = cbShowAngle.Checked;
-                captureFromCam = false;
-                btLoadImage.Enabled = !captureFromCam;
+                btLoadImage.Enabled = true;
                 
                 processor.finder.maxRotateAngle = cbAllowAngleMore45.Checked ? Math.PI : Math.PI / 4;
                 processor.minContourArea = (int)nudMinContourArea.Value;
