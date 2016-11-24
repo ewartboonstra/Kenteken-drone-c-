@@ -20,6 +20,7 @@ using Emgu.CV.Structure;
 using ContourAnalysisNS;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.IO;
+using System.Threading;
 
 namespace kentekenherkenning
 {
@@ -62,14 +63,26 @@ namespace kentekenherkenning
 
             startLicensePlateForm();
 
-            //start server klasse
-            ServerConnection s = new ServerConnection();
+            var imagelistenerThread = new Thread(new ThreadStart(runImageListener));
+            imagelistenerThread.Start();
 
-            //maak verbinding
-            s.SetConnection();
+        }
 
-            //zet de foto  s.isconnected laad de foto in momenteel
-//            frame = new Image<Bgr, byte>((Bitmap) Base64ToImage(s.IsConnected()));
+        private void runImageListener()
+        {
+            while (true)
+            {
+                //start server klasse
+                ServerConnection s = new ServerConnection();
+
+                //maak verbinding
+                s.SetConnection();
+
+                //zet de foto  s.isconnected laad de foto in momenteel
+                var receivedImage = new Image<Bgr, byte>((Bitmap) Base64ToImage(s.IsConnected()));
+                Invoke(new Action( () => frame = receivedImage));
+                
+            }
         }
 
         private void startLicensePlateForm()
