@@ -50,6 +50,7 @@
             this.nudMinContourArea = new System.Windows.Forms.NumericUpDown();
             this.label3 = new System.Windows.Forms.Label();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.cbAdaptiveNoiseFilter = new System.Windows.Forms.CheckBox();
             this.nudAdaptiveThBlockSize = new System.Windows.Forms.NumericUpDown();
             this.label7 = new System.Windows.Forms.Label();
             this.cbBlur = new System.Windows.Forms.CheckBox();
@@ -73,7 +74,6 @@
             this.btCreateTemplate = new System.Windows.Forms.ToolStripButton();
             this.btAutoGenerate = new System.Windows.Forms.ToolStripButton();
             this.btTemplateEditor = new System.Windows.Forms.ToolStripButton();
-            this.cbAdaptiveNoiseFilter = new System.Windows.Forms.CheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.ibMain)).BeginInit();
             this.pnSettings.SuspendLayout();
             this.groupBox3.SuspendLayout();
@@ -382,6 +382,19 @@
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Source";
             // 
+            // cbAdaptiveNoiseFilter
+            // 
+            this.cbAdaptiveNoiseFilter.AutoSize = true;
+            this.cbAdaptiveNoiseFilter.Checked = true;
+            this.cbAdaptiveNoiseFilter.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.cbAdaptiveNoiseFilter.Location = new System.Drawing.Point(105, 123);
+            this.cbAdaptiveNoiseFilter.Name = "cbAdaptiveNoiseFilter";
+            this.cbAdaptiveNoiseFilter.Size = new System.Drawing.Size(75, 17);
+            this.cbAdaptiveNoiseFilter.TabIndex = 13;
+            this.cbAdaptiveNoiseFilter.Text = "Noise filter";
+            this.cbAdaptiveNoiseFilter.UseVisualStyleBackColor = true;
+            this.cbAdaptiveNoiseFilter.CheckedChanged += new System.EventHandler(this.cbAutoContrast_CheckedChanged);
+            // 
             // nudAdaptiveThBlockSize
             // 
             this.nudAdaptiveThBlockSize.Location = new System.Drawing.Point(11, 122);
@@ -511,9 +524,9 @@
             // lbFPS
             // 
             this.lbFPS.AutoSize = false;
-            this.lbFPS.BorderSides = ((System.Windows.Forms.ToolStripStatusLabelBorderSides)((((System.Windows.Forms.ToolStripStatusLabelBorderSides.Left | System.Windows.Forms.ToolStripStatusLabelBorderSides.Top)
-                        | System.Windows.Forms.ToolStripStatusLabelBorderSides.Right)
-                        | System.Windows.Forms.ToolStripStatusLabelBorderSides.Bottom)));
+            this.lbFPS.BorderSides = ((System.Windows.Forms.ToolStripStatusLabelBorderSides)((((System.Windows.Forms.ToolStripStatusLabelBorderSides.Left | System.Windows.Forms.ToolStripStatusLabelBorderSides.Top) 
+            | System.Windows.Forms.ToolStripStatusLabelBorderSides.Right) 
+            | System.Windows.Forms.ToolStripStatusLabelBorderSides.Bottom)));
             this.lbFPS.BorderStyle = System.Windows.Forms.Border3DStyle.SunkenOuter;
             this.lbFPS.Name = "lbFPS";
             this.lbFPS.Size = new System.Drawing.Size(52, 17);
@@ -522,9 +535,9 @@
             // lbContoursCount
             // 
             this.lbContoursCount.AutoSize = false;
-            this.lbContoursCount.BorderSides = ((System.Windows.Forms.ToolStripStatusLabelBorderSides)((((System.Windows.Forms.ToolStripStatusLabelBorderSides.Left | System.Windows.Forms.ToolStripStatusLabelBorderSides.Top)
-                        | System.Windows.Forms.ToolStripStatusLabelBorderSides.Right)
-                        | System.Windows.Forms.ToolStripStatusLabelBorderSides.Bottom)));
+            this.lbContoursCount.BorderSides = ((System.Windows.Forms.ToolStripStatusLabelBorderSides)((((System.Windows.Forms.ToolStripStatusLabelBorderSides.Left | System.Windows.Forms.ToolStripStatusLabelBorderSides.Top) 
+            | System.Windows.Forms.ToolStripStatusLabelBorderSides.Right) 
+            | System.Windows.Forms.ToolStripStatusLabelBorderSides.Bottom)));
             this.lbContoursCount.BorderStyle = System.Windows.Forms.Border3DStyle.SunkenOuter;
             this.lbContoursCount.Name = "lbContoursCount";
             this.lbContoursCount.Size = new System.Drawing.Size(120, 17);
@@ -534,9 +547,9 @@
             // lbRecognized
             // 
             this.lbRecognized.AutoSize = false;
-            this.lbRecognized.BorderSides = ((System.Windows.Forms.ToolStripStatusLabelBorderSides)((((System.Windows.Forms.ToolStripStatusLabelBorderSides.Left | System.Windows.Forms.ToolStripStatusLabelBorderSides.Top)
-                        | System.Windows.Forms.ToolStripStatusLabelBorderSides.Right)
-                        | System.Windows.Forms.ToolStripStatusLabelBorderSides.Bottom)));
+            this.lbRecognized.BorderSides = ((System.Windows.Forms.ToolStripStatusLabelBorderSides)((((System.Windows.Forms.ToolStripStatusLabelBorderSides.Left | System.Windows.Forms.ToolStripStatusLabelBorderSides.Top) 
+            | System.Windows.Forms.ToolStripStatusLabelBorderSides.Right) 
+            | System.Windows.Forms.ToolStripStatusLabelBorderSides.Bottom)));
             this.lbRecognized.BorderStyle = System.Windows.Forms.Border3DStyle.SunkenOuter;
             this.lbRecognized.Name = "lbRecognized";
             this.lbRecognized.Size = new System.Drawing.Size(150, 17);
@@ -639,19 +652,6 @@
             this.btTemplateEditor.Text = "Template viewer";
             this.btTemplateEditor.Click += new System.EventHandler(this.btTemplateEditor_Click);
             // 
-            // cbAdaptiveNoiseFilter
-            // 
-            this.cbAdaptiveNoiseFilter.AutoSize = true;
-            this.cbAdaptiveNoiseFilter.Checked = true;
-            this.cbAdaptiveNoiseFilter.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.cbAdaptiveNoiseFilter.Location = new System.Drawing.Point(105, 123);
-            this.cbAdaptiveNoiseFilter.Name = "cbAdaptiveNoiseFilter";
-            this.cbAdaptiveNoiseFilter.Size = new System.Drawing.Size(75, 17);
-            this.cbAdaptiveNoiseFilter.TabIndex = 13;
-            this.cbAdaptiveNoiseFilter.Text = "Noise filter";
-            this.cbAdaptiveNoiseFilter.UseVisualStyleBackColor = true;
-            this.cbAdaptiveNoiseFilter.CheckedChanged += new System.EventHandler(this.cbAutoContrast_CheckedChanged);
-            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -663,7 +663,7 @@
             this.Controls.Add(this.ssMain);
             this.Controls.Add(this.toolStrip1);
             this.Name = "MainForm";
-            this.Text = "Contour Analysis Demo";
+            this.Text = "License plate recognition";
             ((System.ComponentModel.ISupportInitialize)(this.ibMain)).EndInit();
             this.pnSettings.ResumeLayout(false);
             this.pnSettings.PerformLayout();
