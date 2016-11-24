@@ -69,16 +69,16 @@ namespace kentekenherkenning
 
         private void runImageListener()
         {
-            //start server klasse
+            //start server class
             ServerConnection s = new ServerConnection();
-
-            //maak verbinding
+            //make connection
             s.SetConnection();
 
             while (true)
             {
-                //zet de foto  s.isconnected laad de foto in momenteel
-                var receivedImage = new Image<Bgr, byte>((Bitmap) Base64ToImage(s.IsConnected()));
+                //receives the photo  
+                //s.ForwardImage() forwards given photos from the socket
+                var receivedImage = new Image<Bgr, byte>((Bitmap) Base64ToImage(s.ForwardImage()));
                 Invoke(new Action( () => frame = receivedImage));
                 
             }

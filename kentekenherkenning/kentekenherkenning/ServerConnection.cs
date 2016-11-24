@@ -36,7 +36,7 @@ namespace kentekenherkenning
             }
         }
         //test functie moet nog beter
-        public string IsConnected()
+        public string ForwardImage()
         {
             string input = "test";
 
