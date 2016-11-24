@@ -210,3 +210,16 @@ FakesAssemblies/
 GeneratedArtifacts/
 _Pvt_Extensions/
 ModelManifest.xml
+kentekenherkenning/CAProcessing/Emgu.CV.UI.dll
+kentekenherkenning/CAProcessing/Emgu.CV.dll
+kentekenherkenning/CAProcessing/Emgu.Util.dll
+kentekenherkenning/CAProcessing/opencv_core220.dll
+kentekenherkenning/CAProcessing/opencv_highgui220.dll
+kentekenherkenning/CAProcessing/opencv_imgproc220.dll
+kentekenherkenning/kentekenherkenning/lib/Emgu.CV.UI.dll
+kentekenherkenning/kentekenherkenning/lib/Emgu.CV.dll
+kentekenherkenning/kentekenherkenning/lib/Emgu.Util.dll
+kentekenherkenning/kentekenherkenning/lib/clrzmq.dll
+kentekenherkenning/kentekenherkenning/lib/opencv_core220.dll
+kentekenherkenning/kentekenherkenning/lib/opencv_highgui220.dll
+kentekenherkenning/kentekenherkenning/lib/opencv_imgproc220.dll
