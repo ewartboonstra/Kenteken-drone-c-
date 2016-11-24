@@ -19,14 +19,21 @@ namespace kentekenherkenning
         public void SetConnection()
         {
             context = ZmqContext.Create();
-            socket = context.CreateSocket(ZeroMQ.SocketType.REQ);
+            socket = context.CreateSocket(SocketType.PAIR);
 
             socket.Connect($"tcp://{Ip}:{Port}");
 
-            //test connection
-            //            GetMessage();
+//
+        }
 
+        public string WaitForMessages()
+        {
+            while (true)
+            {
+                string message = socket.Receive(Encoding.UTF8);
+                return message;
 
+            }
         }
         //test functie moet nog beter
         public string IsConnected()
@@ -35,6 +42,7 @@ namespace kentekenherkenning
 
             socket.Send(input, Encoding.UTF8);
             string response = socket.Receive(Encoding.UTF8);
+            string respons2e = socket.Receive(Encoding.UTF8);
             Console.WriteLine(response);
             return response;
         }
