@@ -70,15 +70,15 @@ namespace kentekenherkenning
         private void runImageListener()
         {
             //start server class
-            ServerConnection s = new ServerConnection();
+            ServerConnection client = new ServerConnection();
             //make connection
-            s.SetConnection();
+            client.SetConnection();
 
             while (true)
             {
                 //receives the photo  
                 //s.ForwardImage() forwards given photos from the socket
-                var receivedImage = new Image<Bgr, byte>((Bitmap) Base64ToImage(s.ForwardImage()));
+                var receivedImage = new Image<Bgr, byte>((Bitmap) Base64ToImage(client.ForwardImage()));
                 Invoke(new Action( () => frame = receivedImage));
                 
             }
