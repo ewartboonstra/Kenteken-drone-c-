@@ -51,7 +51,7 @@ namespace kentekenherkenning
             //create image preocessor
             processor = new ImageProcessor();
             //load default templates
-            templateFile = AppDomain.CurrentDomain.BaseDirectory + "\\Kenteken.bin";
+            templateFile = "../../Kenteken.bin";
             LoadTemplates(templateFile);
             
             
