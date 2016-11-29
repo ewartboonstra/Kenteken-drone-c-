@@ -1,30 +1,51 @@
-﻿using System;
+﻿using kentekenherkenning.MoreLinq;
+using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms.VisualStyles;
 
 namespace kentekenherkenning
 {
     //class made by Julian
     public class LicensePlate
     {
+        private const int CharactersInLicensePlate = 6; //the characters have to be six (as that is a requirement for recognizing a dutch licence plate)
+        private const int AllowedDifferenceInAreasPercentage = 50;
+
+
         private List<FoundCharacter> _characterPlaces = new List<FoundCharacter>();
         public string Text = "";
 
         public void Add(FoundCharacter foundCharacter)
         {
             _characterPlaces.Add(foundCharacter);
+            updateText();
         }
 
+        public bool IsValid() //sorts and checks
+        {
+            InsertionSort();
+
+            if (_characterPlaces.Count != CharactersInLicensePlate)
+            {
+                return false;
+            }
+
+            //if the difference in areas is more than 50%, then return false
+            var maxArea = _characterPlaces.MaxBy(x => x.Area).Area;
+            var minArea = _characterPlaces.MinBy(x => x.Area).Area;
+            return (double) minArea/maxArea*100 >= AllowedDifferenceInAreasPercentage;
+        }
 
         public void Sort()
         {
             InsertionSort();
         }
 
-        public void InsertionSort()
+        private void InsertionSort()
         {
             
             for (int I = 1; I < _characterPlaces.Count; I++)
@@ -58,11 +79,13 @@ namespace kentekenherkenning
     {
         public Point Point;
         public string Text;
+        public int Area;
 
-        public FoundCharacter(Point point, string text)
+        public FoundCharacter(Point point, string text, int area)
         {
             Point = point;
             Text = text;
+            Area = area;
         }
     }
 }
