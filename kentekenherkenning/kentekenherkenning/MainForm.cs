@@ -186,14 +186,12 @@ namespace kentekenherkenning
                 Rectangle foundRect = found.sample.contour.SourceBoundingRect;
                 Point p1 = new Point((foundRect.Left + foundRect.Right)/2, foundRect.Top);
 
-                string text = found.template.name;
-
+                var text = found.template.name;
+                var area = foundRect.Area();
+                
                     //put it in the license plate (made by Julian)
-                    var foundCharacter = new FoundCharacter(p1, text);
+                    var foundCharacter = new FoundCharacter(p1, text,area);
                     processingLicensePlate.Add(foundCharacter);
-
-                    
-
 
                 if (showAngle)
                     text += string.Format("\r\nangle={0:000}°\r\nscale={1:0.0}", 180 * found.angle / Math.PI, found.scale);
@@ -207,8 +205,17 @@ namespace kentekenherkenning
                 }
 
             //add the license plate to the list (made by Julian)
-            processingLicensePlate.Sort();
-            _licensePlateForm.AddLicensePlate(processingLicensePlate);
+
+            if (processingLicensePlate.IsValid())
+            {
+                processingLicensePlate.Sort();
+                _licensePlateForm.AddLicensePlate(processingLicensePlate);
+            }
+            else
+            {
+                Console.WriteLine("Processed 'license plate' rejected: " + processingLicensePlate.Text);
+            }
+            
             
 
         }
