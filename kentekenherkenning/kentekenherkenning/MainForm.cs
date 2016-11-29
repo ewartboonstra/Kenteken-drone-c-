@@ -193,10 +193,10 @@ namespace kentekenherkenning
                 Point p1 = new Point((foundRect.Left + foundRect.Right)/2, foundRect.Top);
 
                 var text = found.template.name;
-                var area = foundRect.Area();
+                var height = foundRect.Height;
                 
                     //put it in the license plate (made by Julian)
-                    var foundCharacter = new FoundCharacter(p1, text,area);
+                    var foundCharacter = new FoundCharacter(p1, text,height);
                     processingLicensePlate.Add(foundCharacter);
 
                 if (showAngle)

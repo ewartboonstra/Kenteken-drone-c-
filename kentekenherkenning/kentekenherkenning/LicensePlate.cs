@@ -35,8 +35,8 @@ namespace kentekenherkenning
             }
 
             //if the difference in areas is more than 50%, then return false
-            var maxArea = _characterPlaces.MaxBy(x => x.Area).Area;
-            var minArea = _characterPlaces.MinBy(x => x.Area).Area;
+            var maxArea = _characterPlaces.MaxBy(x => x.Height).Height;
+            var minArea = _characterPlaces.MinBy(x => x.Height).Height;
             return (double) minArea/maxArea*100 >= AllowedDifferenceInAreasPercentage;
         }
 
@@ -79,13 +79,13 @@ namespace kentekenherkenning
     {
         public Point Point;
         public string Text;
-        public int Area;
+        public int Height;
 
-        public FoundCharacter(Point point, string text, int area)
+        public FoundCharacter(Point point, string text, int height)
         {
             Point = point;
             Text = text;
-            Area = area;
+            Height = height;
         }
     }
 }
