@@ -60,31 +60,34 @@ namespace kentekenherkenning
             //
             Application.Idle += new EventHandler(Application_Idle);
 
-            startLicensePlateForm();
+            StartLicensePlateForm();
 
-            _imagelistenerThread = new Thread(new ThreadStart(runImageListener));
+            _imagelistenerThread = new Thread(new ThreadStart(RunConnectionServer));
             _imagelistenerThread.Start();
 
         }
 
-        private void runImageListener()
+        /// <summary>
+        /// Start connection to server on a new thread
+        /// </summary>
+        private void RunConnectionServer()
         {
-            //start server class
-            ServerConnection client = new ServerConnection();
-            //make connection
-            client.SetConnection();
+            //start server klasse
+            ServerConnection s = new ServerConnection();
 
+            //maak verbinding
+            s.SetConnection();
             while (true)
             {
-                //receives the photo  
-                //s.ForwardImage() forwards given photos from the socket
-                var receivedImage = new Image<Bgr, byte>((Bitmap) Base64ToImage(client.ForwardImage()));
+                Image message = s.WaitForImage();
+
+               var receivedImage = new Image<Bgr, byte>((Bitmap) message);
                 Invoke(new Action( () => frame = receivedImage));
                 
             }
         }
 
-        private void startLicensePlateForm()
+        private void StartLicensePlateForm()
         {
             _licensePlateForm = new ShowLicensePlates();
             _licensePlateForm.Show();
@@ -282,17 +285,7 @@ namespace kentekenherkenning
         }
 
 
-        public Image Base64ToImage(string base64String)
-        {
-            // Convert base 64 string to byte[]
-            byte[] imageBytes = Convert.FromBase64String(base64String);
-            // Convert byte[] to Image
-            using (var ms = new MemoryStream(imageBytes, 0, imageBytes.Length))
-            {
-                Image image = Image.FromStream(ms, true);
-                return image;
-            }
-        }
+        
 
         private void MainForm_FormClosed(object sender, FormClosedEventArgs e)
         {
