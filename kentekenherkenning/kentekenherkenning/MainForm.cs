@@ -22,6 +22,7 @@ using System.Runtime.Serialization.Formatters.Binary;
 using System.IO;
 using System.Threading;
 
+
 namespace kentekenherkenning
 {
     public partial class MainForm : Form
@@ -41,6 +42,8 @@ namespace kentekenherkenning
 
         private ShowLicensePlates _licensePlateForm;
         private Thread _imagelistenerThread;
+
+        private readonly ConsoleKeepTrackUtilities consoleUtilities = new ConsoleKeepTrackUtilities();
         
         
         
@@ -208,12 +211,12 @@ namespace kentekenherkenning
 
             if (processingLicensePlate.IsValid())
             {
-                processingLicensePlate.Sort();
                 _licensePlateForm.AddLicensePlate(processingLicensePlate);
             }
             else
             {
-                Console.WriteLine("Processed 'license plate' rejected: " + processingLicensePlate.Text);
+                consoleUtilities.WriteOnce("Processed 'license plate' rejected: " + processingLicensePlate.Text);
+                
             }
             
             

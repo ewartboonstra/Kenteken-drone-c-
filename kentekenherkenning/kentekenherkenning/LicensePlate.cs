@@ -22,11 +22,13 @@ namespace kentekenherkenning
         public void Add(FoundCharacter foundCharacter)
         {
             _characterPlaces.Add(foundCharacter);
+            updateText();
         }
 
-        public bool IsValid()
+        public bool IsValid() //sorts and checks
         {
-            
+            InsertionSort();
+
             if (_characterPlaces.Count != CharactersInLicensePlate)
             {
                 return false;
@@ -43,7 +45,7 @@ namespace kentekenherkenning
             InsertionSort();
         }
 
-        public void InsertionSort()
+        private void InsertionSort()
         {
             
             for (int I = 1; I < _characterPlaces.Count; I++)
