@@ -57,11 +57,9 @@
             this.cbAutoContrast = new System.Windows.Forms.CheckBox();
             this.cbShowAngle = new System.Windows.Forms.CheckBox();
             this.ssMain = new System.Windows.Forms.StatusStrip();
-            this.lbFPS = new System.Windows.Forms.ToolStripStatusLabel();
             this.lbContoursCount = new System.Windows.Forms.ToolStripStatusLabel();
             this.lbRecognized = new System.Windows.Forms.ToolStripStatusLabel();
             this.splitter1 = new System.Windows.Forms.Splitter();
-            this.tmUpdateState = new System.Windows.Forms.Timer(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.ibMain)).BeginInit();
             this.pnSettings.SuspendLayout();
             this.groupBox3.SuspendLayout();
@@ -460,7 +458,6 @@
             // ssMain
             // 
             this.ssMain.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.lbFPS,
             this.lbContoursCount,
             this.lbRecognized});
             this.ssMain.Location = new System.Drawing.Point(0, 430);
@@ -468,17 +465,6 @@
             this.ssMain.Size = new System.Drawing.Size(713, 22);
             this.ssMain.TabIndex = 4;
             this.ssMain.Text = "statusStrip1";
-            // 
-            // lbFPS
-            // 
-            this.lbFPS.AutoSize = false;
-            this.lbFPS.BorderSides = ((System.Windows.Forms.ToolStripStatusLabelBorderSides)((((System.Windows.Forms.ToolStripStatusLabelBorderSides.Left | System.Windows.Forms.ToolStripStatusLabelBorderSides.Top) 
-            | System.Windows.Forms.ToolStripStatusLabelBorderSides.Right) 
-            | System.Windows.Forms.ToolStripStatusLabelBorderSides.Bottom)));
-            this.lbFPS.BorderStyle = System.Windows.Forms.Border3DStyle.SunkenOuter;
-            this.lbFPS.Name = "lbFPS";
-            this.lbFPS.Size = new System.Drawing.Size(52, 17);
-            this.lbFPS.Text = "0 fps";
             // 
             // lbContoursCount
             // 
@@ -512,12 +498,6 @@
             this.splitter1.Size = new System.Drawing.Size(5, 430);
             this.splitter1.TabIndex = 5;
             this.splitter1.TabStop = false;
-            // 
-            // tmUpdateState
-            // 
-            this.tmUpdateState.Enabled = true;
-            this.tmUpdateState.Interval = 1000;
-            this.tmUpdateState.Tick += new System.EventHandler(this.tmUpdateState_Tick);
             // 
             // MainForm
             // 
@@ -560,9 +540,7 @@
         private System.Windows.Forms.Panel pnSettings;
         private System.Windows.Forms.StatusStrip ssMain;
         private System.Windows.Forms.Splitter splitter1;
-        private System.Windows.Forms.ToolStripStatusLabel lbFPS;
         private System.Windows.Forms.ToolStripStatusLabel lbContoursCount;
-        private System.Windows.Forms.Timer tmUpdateState;
         private System.Windows.Forms.ToolStripStatusLabel lbRecognized;
         private System.Windows.Forms.CheckBox cbShowAngle;
         private System.Windows.Forms.CheckBox cbAutoContrast;
