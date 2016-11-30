@@ -14,8 +14,7 @@ namespace kentekenherkenning
     {
         private const int CharactersInLicensePlate = 6; //the characters have to be six (as that is a requirement for recognizing a dutch licence plate)
         private const int AllowedDifferenceInAreasPercentage = 50;
-        private const int AcceptableConsecutiveLetters = 3;
-        private const int AcceptableConsecutiveNumbers = 3;
+        
 
 
         private List<FoundCharacter> _characterPlaces = new List<FoundCharacter>();
@@ -28,38 +27,7 @@ namespace kentekenherkenning
         }
 
 
-        /// <summary>
-        /// Check for consecutives (letters or numbers)
-        /// </summary>
-        /// <returns> Too many consecutives or not </returns>
-        private bool IsConsecutiveValid()
-        {
-            //check for too many consecutives
-            var consecutiveLetters = 0;
-            var consecutiveNumbers = 0;
-            foreach (var ch in _characterPlaces)
-            {
-                var toBeChecked = ch.Text[0];
-                if (char.IsLetter(toBeChecked))
-                {
-                    consecutiveLetters++;
-                    consecutiveNumbers = 0;
-                }
-                else
-                {
-                    consecutiveNumbers++;
-                    consecutiveLetters = 0;
-                }
-
-                if (consecutiveLetters > AcceptableConsecutiveLetters || consecutiveNumbers > AcceptableConsecutiveNumbers)
-                {
-
-                    return false;
-                }
-            }
-
-            return true;
-        }
+        
 
 
         public bool IsValid() //sorts and checks
@@ -71,12 +39,7 @@ namespace kentekenherkenning
                 
                 return false;
             }
-
-
-            if (!IsConsecutiveValid())
-            {
-                return false;
-            }
+        
 
 
             //if the difference in heights is more than 50%, then return false
