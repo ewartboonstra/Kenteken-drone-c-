@@ -176,7 +176,7 @@ namespace kentekenherkenning
         }
 
         //part of ProcessLicensePlate, which gives te needed variables of the new found character.
-        private void PerformDrawingsOfFoundCharacter(Graphics g, string text, int height, FoundTemplateDesc found, Rectangle foundRect, Point p1)
+        private void PerformDrawingsOfFoundCharacter(Graphics g, string text, FoundTemplateDesc found, Rectangle foundRect, Point p1)
         {
             if (showAngle)
                 text += string.Format("\r\nangle={0:000}°\r\nscale={1:0.0}", 180 * found.angle / Math.PI, found.scale);
@@ -206,7 +206,7 @@ namespace kentekenherkenning
 
                     var text = found.template.name;
                     var height = foundRect.Height;
-                    PerformDrawingsOfFoundCharacter(g,text, height, found, foundRect, p1);
+                    PerformDrawingsOfFoundCharacter(g,text, found, foundRect, p1);
 
                     //put it in the license plate (made by Julian)
                     var foundCharacter = new FoundCharacter(p1, text, height);
