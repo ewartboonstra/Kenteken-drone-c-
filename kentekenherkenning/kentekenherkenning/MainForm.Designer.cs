@@ -396,7 +396,7 @@
             this.nudAdaptiveThBlockSize.Size = new System.Drawing.Size(78, 20);
             this.nudAdaptiveThBlockSize.TabIndex = 11;
             this.nudAdaptiveThBlockSize.Value = new decimal(new int[] {
-            100,
+            50,
             0,
             0,
             0});

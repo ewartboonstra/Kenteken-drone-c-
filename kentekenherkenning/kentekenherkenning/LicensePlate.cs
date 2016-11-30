@@ -28,16 +28,12 @@ namespace kentekenherkenning
         }
 
 
-        public bool IsValid() //sorts and checks
+        /// <summary>
+        /// Check for consecutives (letters or numbers)
+        /// </summary>
+        /// <returns> Too many consecutives or not </returns>
+        private bool IsConsecutiveValid()
         {
-            InsertionSort();
-
-            if (_characterPlaces.Count != CharactersInLicensePlate)
-            {
-                return false;
-            }
-
-
             //check for too many consecutives
             var consecutiveLetters = 0;
             var consecutiveNumbers = 0;
@@ -59,6 +55,25 @@ namespace kentekenherkenning
                 {
                     return false;
                 }
+            }
+
+            return true;
+        }
+
+
+        public bool IsValid() //sorts and checks
+        {
+            InsertionSort();
+
+            if (_characterPlaces.Count != CharactersInLicensePlate)
+            {
+                return false;
+            }
+
+
+            if (!IsConsecutiveValid())
+            {
+                return false;
             }
 
 
