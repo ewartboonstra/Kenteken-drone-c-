@@ -34,10 +34,10 @@ namespace kentekenherkenning
                 return false;
             }
 
-            //if the difference in areas is more than 50%, then return false
-            var maxArea = _characterPlaces.MaxBy(x => x.Height).Height;
-            var minArea = _characterPlaces.MinBy(x => x.Height).Height;
-            return (double) minArea/maxArea*100 >= AllowedDifferenceInAreasPercentage;
+            //if the difference in heights is more than 50%, then return false
+            var maxHeight = _characterPlaces.MaxBy(x => x.Height).Height;
+            var minHeight = _characterPlaces.MinBy(x => x.Height).Height;
+            return (double) minHeight/maxHeight*100 >= AllowedDifferenceInAreasPercentage;
         }
 
         public void Sort()
