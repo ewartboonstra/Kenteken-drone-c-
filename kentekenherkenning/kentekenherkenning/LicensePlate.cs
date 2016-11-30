@@ -14,6 +14,7 @@ namespace kentekenherkenning
     {
         private const int CharactersInLicensePlate = 6; //the characters have to be six (as that is a requirement for recognizing a dutch licence plate)
         private const int AllowedDifferenceInAreasPercentage = 50;
+        
 
 
         private List<FoundCharacter> _characterPlaces = new List<FoundCharacter>();
@@ -25,19 +26,24 @@ namespace kentekenherkenning
             UpdateText();
         }
 
+
         /// <summary>
         /// Check if licenceplate is valid licenceplate
         /// </summary>
         /// <returns>valid checks</returns>
-        public bool IsValid() 
+        public bool IsValid() //sorts and checks
         {
             if (_characterPlaces.Count != CharactersInLicensePlate)
-                return false;
 
-            //if the difference in areas is more than 50%, then return false
-            var maxArea = _characterPlaces.MaxBy(x => x.Height).Height;
-            var minArea = _characterPlaces.MinBy(x => x.Height).Height;
-            return (double) minArea/maxArea*100 >= AllowedDifferenceInAreasPercentage;
+            {
+                
+                return false;
+            }
+
+            //if the difference in heights is more than 50%, then return false
+            var maxHeight = _characterPlaces.MaxBy(x => x.Height).Height;
+            var minHeight = _characterPlaces.MinBy(x => x.Height).Height;
+            return (double) minHeight/maxHeight*100 >= AllowedDifferenceInAreasPercentage;
         }
 
         public void Sort()

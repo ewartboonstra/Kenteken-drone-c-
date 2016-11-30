@@ -316,7 +316,7 @@
             this.nudMinContourLength.Size = new System.Drawing.Size(78, 20);
             this.nudMinContourLength.TabIndex = 7;
             this.nudMinContourLength.Value = new decimal(new int[] {
-            15,
+            100,
             0,
             0,
             0});
@@ -394,7 +394,7 @@
             this.nudAdaptiveThBlockSize.Size = new System.Drawing.Size(78, 20);
             this.nudAdaptiveThBlockSize.TabIndex = 11;
             this.nudAdaptiveThBlockSize.Value = new decimal(new int[] {
-            100,
+            50,
             0,
             0,
             0});
