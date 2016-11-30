@@ -12,13 +12,28 @@ namespace kentekenherkenning
     //class made by Julian
     public class LicensePlate
     {
-        private const int CharactersInLicensePlate = 6; //the characters have to be six (as that is a requirement for recognizing a dutch licence plate)
+        //the characters have to be six (as that is a requirement for recognizing a dutch licence plate)
+        private int CharactersInLicensePlate; 
+
         private const int AllowedDifferenceInAreasPercentage = 50;
+        public string TemplateFile { get; set; }
 
 
         private List<FoundCharacter> _characterPlaces = new List<FoundCharacter>();
         public string Text = "";
 
+        public LicensePlate()
+        {
+            CharactersInLicensePlate = 6;
+            TemplateFile = "../..//Templates/Nederlands.bin";
+            }
+
+        public LicensePlate(int characters, string template)
+        {
+            CharactersInLicensePlate = characters;
+            TemplateFile = $"../..//Templates/{template}";
+
+        }
         public void Add(FoundCharacter foundCharacter)
         {
             _characterPlaces.Add(foundCharacter);
@@ -70,21 +85,5 @@ namespace kentekenherkenning
                 Text += ch.Text;
             }
         }
-
-    }
-    
-    //binding of point and text in one struct
-    public struct FoundCharacter
-    {
-        public Point Point;
-        public string Text;
-        public int Height;
-
-        public FoundCharacter(Point point, string text, int height)
-        {
-            Point = point;
-            Text = text;
-            Height = height;
         }
     }
-}

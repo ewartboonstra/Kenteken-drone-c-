@@ -32,7 +32,7 @@ namespace kentekenherkenning
         ImageProcessor processor;
 
         Dictionary<string, Image> AugmentedRealityImages = new Dictionary<string, Image>();
-
+        private List<Country> TemplateList; 
         bool showAngle;
 
         string templateFile;
@@ -57,10 +57,16 @@ namespace kentekenherkenning
 
             //create image preocessor
             processor = new ImageProcessor();
+
+            //todo: dit weghalen
             //load default templates
-            templateFile = "../../Kenteken.bin";
+            templateFile = "../..//Templates/Nederlands.bin";
             LoadTemplates(templateFile);
 
+            TemplateList = new List<Country>();
+
+            Country netherlands = new Country("Nederland", 6, "Nederlands");
+            TemplateList.Add(netherlands);
 
             //apply settings
             ApplySettings();
@@ -131,17 +137,32 @@ namespace kentekenherkenning
         /// </summary>
         private void ProcessFrame()
         {
-            try
+            foreach (Country country in TemplateList)
             {
-                processor.ProcessImage(frame);
-                if (cbShowBinarized.Checked)
-                    ibMain.Image = processor.binarizedFrame;
+                try
+                {
+                    processor.ProcessImage(frame);
+                    if (cbShowBinarized.Checked)
+                        ibMain.Image = processor.binarizedFrame;
+                    else
+                        ibMain.Image = frame;
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine(ex.Message);
+                }
+
+                LicensePlate licensePlate = ProcessLicensePlate();
+            
+                //add the license plate to the list (made by Julian)
+                if (licensePlate.IsValid())
+                {
+                    licensePlate.Sort();
+                    _licensePlateForm.AddLicensePlate(licensePlate);
+                    consoleUtilities.WriteOnce($"LicencePlate: {licensePlate.Text} saved.");
+                }
                 else
-                    ibMain.Image = frame;
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine(ex.Message);
+                    consoleUtilities.WriteOnce($"LicencePlate: {licensePlate.Text} rejected.");
             }
         }
 
@@ -158,37 +179,49 @@ namespace kentekenherkenning
         }
 
         /// <summary>
+        /// Draw box around each character
+        /// </summary>
+        /// <param name="g">Graphics class</param>
+        private void DrawBox(Graphics g)
+        {
+            foreach (FoundTemplateDesc found in processor.foundTemplates)
+            {
+                if (found.template.name.EndsWith(".png") || found.template.name.EndsWith(".jpg"))
+                {
+                    DrawAugmentedReality(found, g);
+                    continue;
+                }
+                Rectangle foundRect = found.sample.contour.SourceBoundingRect;
+                string text = found.template.name;
+                Point p1 = new Point((foundRect.Left + foundRect.Right) / 2, foundRect.Top);
+
+                if (showAngle)
+                    text += $"\r\nangle={180 * found.angle / Math.PI:000}°\r\nscale={found.scale:0.0}";
+
+                g.DrawRectangle(borderPen, foundRect);
+
+                g.DrawString(text, font, bgBrush, new PointF(p1.X + 1 - font.Height / 3, p1.Y + 1 - font.Height));
+                g.DrawString(text, font, foreBrush, new PointF(p1.X - font.Height / 3, p1.Y - font.Height));
+            }
+        }
+
+        /// <summary>
         /// make a licenceplate of image
         /// </summary>
         /// <param name="g">Graphics class</param>
         /// <returns> Licenceplate found</returns>
-        private LicensePlate ProcessLicensePlate(Graphics g)
+        private LicensePlate ProcessLicensePlate()
         {
             var licensePlate = new LicensePlate();
 
             lock (processor.foundTemplates)
                 foreach (FoundTemplateDesc found in processor.foundTemplates)
                 {
-                    if (found.template.name.EndsWith(".png") || found.template.name.EndsWith(".jpg"))
-                    {
-                        DrawAugmentedReality(found, g);
-                        continue;
-                    }
-
                     Rectangle foundRect = found.sample.contour.SourceBoundingRect;
                     Point p1 = new Point((foundRect.Left + foundRect.Right) / 2, foundRect.Top);
 
                     string text = found.template.name;
                     int height = foundRect.Height;
-
-                    if (showAngle)
-                        text += $"\r\nangle={180*found.angle/Math.PI:000}°\r\nscale={found.scale:0.0}";
-
-                    g.DrawRectangle(borderPen, foundRect);
-
-                    //text += "-" + testCounter++;    
-                    g.DrawString(text, font, bgBrush, new PointF(p1.X + 1 - font.Height / 3, p1.Y + 1 - font.Height));
-                    g.DrawString(text, font, foreBrush, new PointF(p1.X - font.Height / 3, p1.Y - font.Height));
 
                     var foundCharacter = new FoundCharacter(p1, text, height);
 
@@ -202,22 +235,12 @@ namespace kentekenherkenning
         /// </summary>
         private void ibMain_Paint(object sender, PaintEventArgs e)
         {
-            DrawContours(e.Graphics);
-            LicensePlate licensePlate = ProcessLicensePlate(e.Graphics);
+            Graphics g = e.Graphics;
 
-            //add the license plate to the list (made by Julian)
-            if (licensePlate.IsValid())
-            {
-                licensePlate.Sort();
-                _licensePlateForm.AddLicensePlate(licensePlate);
-                consoleUtilities.WriteOnce($"LicencePlate: {licensePlate.Text} saved.");
-            }
-            else
-                consoleUtilities.WriteOnce($"LicencePlate: {licensePlate.Text} rejected.");
-            }
-
-
-
+            DrawContours(g);
+            DrawBox(g);
+        }
+        
         private void DrawAugmentedReality(FoundTemplateDesc found, Graphics gr)
         {
             string fileName = Path.GetDirectoryName(templateFile) + "\\" + found.template.name;

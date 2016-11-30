@@ -63,6 +63,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ConsoleKeepTrackUtilities.cs" />
+    <Compile Include="FoundCharacter.cs" />
+    <Compile Include="Country.cs" />
     <Compile Include="LicensePlate.cs" />
     <Compile Include="MainForm.cs">
       <SubType>Form</SubType>
@@ -97,7 +99,6 @@
     <EmbeddedResource Include="ShowLicensePlates.resx">
       <DependentUpon>ShowLicensePlates.cs</DependentUpon>
     </EmbeddedResource>
-    <None Include="Kenteken.bin" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -107,6 +108,7 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
+    <None Include="Templates\Nederlands.bin" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
