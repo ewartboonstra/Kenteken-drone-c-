@@ -22,17 +22,17 @@ namespace kentekenherkenning
         public void Add(FoundCharacter foundCharacter)
         {
             _characterPlaces.Add(foundCharacter);
-            updateText();
+            UpdateText();
         }
 
-        public bool IsValid() //sorts and checks
+        /// <summary>
+        /// Check if licenceplate is valid licenceplate
+        /// </summary>
+        /// <returns>valid checks</returns>
+        public bool IsValid() 
         {
-            InsertionSort();
-
             if (_characterPlaces.Count != CharactersInLicensePlate)
-            {
                 return false;
-            }
 
             //if the difference in areas is more than 50%, then return false
             var maxArea = _characterPlaces.MaxBy(x => x.Height).Height;
@@ -59,10 +59,10 @@ namespace kentekenherkenning
                 _characterPlaces[I] = newElement;
             }
 
-            updateText();
+            UpdateText();
         }
 
-        private void updateText()
+        private void UpdateText()
         {
             Text = "";
             foreach (var ch in _characterPlaces)
@@ -72,8 +72,7 @@ namespace kentekenherkenning
         }
 
     }
-
-
+    
     //binding of point and text in one struct
     public struct FoundCharacter
     {

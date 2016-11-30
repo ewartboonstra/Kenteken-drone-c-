@@ -61,7 +61,6 @@
             this.lbContoursCount = new System.Windows.Forms.ToolStripStatusLabel();
             this.lbRecognized = new System.Windows.Forms.ToolStripStatusLabel();
             this.splitter1 = new System.Windows.Forms.Splitter();
-            this.tmUpdateState = new System.Windows.Forms.Timer(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.ibMain)).BeginInit();
             this.pnSettings.SuspendLayout();
             this.groupBox3.SuspendLayout();
@@ -513,12 +512,6 @@
             this.splitter1.TabIndex = 5;
             this.splitter1.TabStop = false;
             // 
-            // tmUpdateState
-            // 
-            this.tmUpdateState.Enabled = true;
-            this.tmUpdateState.Interval = 1000;
-            this.tmUpdateState.Tick += new System.EventHandler(this.tmUpdateState_Tick);
-            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -562,7 +555,6 @@
         private System.Windows.Forms.Splitter splitter1;
         private System.Windows.Forms.ToolStripStatusLabel lbFPS;
         private System.Windows.Forms.ToolStripStatusLabel lbContoursCount;
-        private System.Windows.Forms.Timer tmUpdateState;
         private System.Windows.Forms.ToolStripStatusLabel lbRecognized;
         private System.Windows.Forms.CheckBox cbShowAngle;
         private System.Windows.Forms.CheckBox cbAutoContrast;
