@@ -53,6 +53,7 @@ namespace kentekenherkenning
 
                 if (consecutiveLetters > AcceptableConsecutiveLetters || consecutiveNumbers > AcceptableConsecutiveNumbers)
                 {
+
                     return false;
                 }
             }
@@ -67,6 +68,7 @@ namespace kentekenherkenning
 
             if (_characterPlaces.Count != CharactersInLicensePlate)
             {
+                
                 return false;
             }
 
