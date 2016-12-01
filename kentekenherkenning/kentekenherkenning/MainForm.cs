@@ -14,6 +14,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Drawing;
+using System.Drawing.Drawing2D;
 using System.Windows.Forms;
 using Emgu.CV;
 using Emgu.CV.Structure;
@@ -55,27 +56,32 @@ namespace kentekenherkenning
 
             font = new Font(Font.FontFamily, 24);//16
 
-            //create image preocessor
+            //create image processor
             processor = new ImageProcessor();
 
-            //todo: dit weghalen
-            //load default templates
-            templateFile = "../..//Templates/Nederlands.bin";
-            LoadTemplates(templateFile);
+            //apply settings
+            ApplySettings();
+
+            StartLicensePlateForm();
+
+            InitializeCountries();
+
+            //stard server thread
+            _imagelistenerThread = new Thread(new ThreadStart(RunConnectionServer));
+            _imagelistenerThread.Start();
+        }
+
+
+        /// <summary>
+        /// load a list of default countries in the list
+        /// </summary>
+        public void InitializeCountries()
+        {
 
             TemplateList = new List<Country>();
 
             Country netherlands = new Country("Nederland", 6, "Nederlands");
             TemplateList.Add(netherlands);
-
-            //apply settings
-            ApplySettings();
-            //
-
-            StartLicensePlateForm();
-
-            _imagelistenerThread = new Thread(new ThreadStart(RunConnectionServer));
-            _imagelistenerThread.Start();
         }
 
         /// <summary>
@@ -92,7 +98,7 @@ namespace kentekenherkenning
             {
                 Image message = s.WaitForImage();
 
-                var receivedImage = new Image<Bgr, byte>((Bitmap)message);
+                Image<Bgr, byte> receivedImage = new Image<Bgr, byte>((Bitmap)message);
                 Invoke(new Action(() => frame = receivedImage));
                 Invoke(new Action(ProcessFrame));
 
@@ -141,7 +147,10 @@ namespace kentekenherkenning
             {
                 try
                 {
+                    LoadTemplates(country.TemplateLocation);
+
                     processor.ProcessImage(frame);
+
                     if (cbShowBinarized.Checked)
                         ibMain.Image = processor.binarizedFrame;
                     else
@@ -152,17 +161,18 @@ namespace kentekenherkenning
                     Console.WriteLine(ex.Message);
                 }
 
-                LicensePlate licensePlate = ProcessLicensePlate();
+                LicensePlate licensePlate = ProcessLicensePlate(country);
             
                 //add the license plate to the list (made by Julian)
                 if (licensePlate.IsValid())
                 {
                     licensePlate.Sort();
                     _licensePlateForm.AddLicensePlate(licensePlate);
-                    consoleUtilities.WriteOnce($"LicencePlate: {licensePlate.Text} saved.");
+                    consoleUtilities.WriteOnce($"LicencePlate: {licensePlate.Text} saved. Country: {country.Name}");
+                    break;
                 }
                 else
-                    consoleUtilities.WriteOnce($"LicencePlate: {licensePlate.Text} rejected.");
+                    consoleUtilities.WriteOnce($"LicencePlate: {licensePlate.Text} rejected. Country: {country.Name}");
             }
         }
 
@@ -173,7 +183,7 @@ namespace kentekenherkenning
         private void DrawContours(Graphics g)
         {
             if (cbShowContours.Checked)
-                foreach (var contour in processor.contours)
+                foreach (Contour<Point> contour in processor.contours)
                     if (contour.Total > 1)
                         g.DrawLines(Pens.Red, contour.ToArray());
         }
@@ -208,11 +218,11 @@ namespace kentekenherkenning
         /// <summary>
         /// make a licenceplate of image
         /// </summary>
-        /// <param name="g">Graphics class</param>
+        /// <param name="country">country to check licenceplate in</param>
         /// <returns> Licenceplate found</returns>
-        private LicensePlate ProcessLicensePlate()
+        private LicensePlate ProcessLicensePlate(Country country)
         {
-            var licensePlate = new LicensePlate();
+            LicensePlate licensePlate = new LicensePlate(country);
 
             lock (processor.foundTemplates)
                 foreach (FoundTemplateDesc found in processor.foundTemplates)
@@ -223,7 +233,7 @@ namespace kentekenherkenning
                     string text = found.template.name;
                     int height = foundRect.Height;
 
-                    var foundCharacter = new FoundCharacter(p1, text, height);
+                    FoundCharacter foundCharacter = new FoundCharacter(p1, text, height);
 
                     licensePlate.Add(foundCharacter);
                 }
@@ -251,7 +261,7 @@ namespace kentekenherkenning
             }
             Image img = AugmentedRealityImages[fileName];
             Point p = found.sample.contour.SourceBoundingRect.Center();
-            var state = gr.Save();
+            GraphicsState state = gr.Save();
             gr.TranslateTransform(p.X, p.Y);
             gr.RotateTransform((float)(180f * found.angle / Math.PI));
             gr.ScaleTransform((float)(found.scale), (float)(found.scale));

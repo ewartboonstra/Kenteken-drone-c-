@@ -13,26 +13,17 @@ namespace kentekenherkenning
     public class LicensePlate
     {
         //the characters have to be six (as that is a requirement for recognizing a dutch licence plate)
-        private int CharactersInLicensePlate; 
 
         private const int AllowedDifferenceInAreasPercentage = 50;
         public string TemplateFile { get; set; }
-
+        private Country Country;
 
         private List<FoundCharacter> _characterPlaces = new List<FoundCharacter>();
         public string Text = "";
 
-        public LicensePlate()
+        public LicensePlate(Country country)
         {
-            CharactersInLicensePlate = 6;
-            TemplateFile = "../..//Templates/Nederlands.bin";
-            }
-
-        public LicensePlate(int characters, string template)
-        {
-            CharactersInLicensePlate = characters;
-            TemplateFile = $"../..//Templates/{template}";
-
+            Country = country;
         }
         public void Add(FoundCharacter foundCharacter)
         {
@@ -46,7 +37,7 @@ namespace kentekenherkenning
         /// <returns>valid checks</returns>
         public bool IsValid() 
         {
-            if (_characterPlaces.Count != CharactersInLicensePlate)
+            if (_characterPlaces.Count != Country.Characters)
                 return false;
 
             //if the difference in areas is more than 50%, then return false
