@@ -12,18 +12,16 @@ namespace kentekenherkenning
     //class made by Julian
     public class LicensePlate
     {
-        private const int CharactersInLicensePlate = 6; //the characters have to be six (as that is a requirement for recognizing a dutch licence plate)
         private const int AllowedDifferenceInAreasPercentage = 50;
         
-
-        private Country Country;
+        private Country _country;
 
         private List<FoundCharacter> _characterPlaces = new List<FoundCharacter>();
         public string Text = "";
 
         public LicensePlate(Country country)
         {
-            Country = country;
+            _country = country;
         }
         public void Add(FoundCharacter foundCharacter)
         {
@@ -38,12 +36,8 @@ namespace kentekenherkenning
         /// <returns>valid checks</returns>
         public bool IsValid() //sorts and checks
         {
-            if (_characterPlaces.Count != CharactersInLicensePlate)
-
-            {
-                
+            if (_characterPlaces.Count != _country.Characters)
                 return false;
-            }
 
             //if the difference in heights is more than 50%, then return false
             var maxHeight = _characterPlaces.MaxBy(x => x.Height).Height;
@@ -81,5 +75,5 @@ namespace kentekenherkenning
                 Text += ch.Text;
             }
         }
-        }
     }
+}
