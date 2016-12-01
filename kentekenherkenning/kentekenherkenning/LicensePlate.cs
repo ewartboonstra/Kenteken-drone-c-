@@ -16,10 +16,15 @@ namespace kentekenherkenning
         private const int AllowedDifferenceInAreasPercentage = 50;
         
 
+        private Country Country;
 
         private List<FoundCharacter> _characterPlaces = new List<FoundCharacter>();
         public string Text = "";
 
+        public LicensePlate(Country country)
+        {
+            Country = country;
+        }
         public void Add(FoundCharacter foundCharacter)
         {
             _characterPlaces.Add(foundCharacter);
@@ -76,21 +81,5 @@ namespace kentekenherkenning
                 Text += ch.Text;
             }
         }
-
-    }
-    
-    //binding of point and text in one struct
-    public struct FoundCharacter
-    {
-        public Point Point;
-        public string Text;
-        public int Height;
-
-        public FoundCharacter(Point point, string text, int height)
-        {
-            Point = point;
-            Text = text;
-            Height = height;
         }
     }
-}
