@@ -12,32 +12,37 @@ namespace kentekenherkenning
     //class made by Julian
     public class LicensePlate
     {
-        private const int CharactersInLicensePlate = 6; //the characters have to be six (as that is a requirement for recognizing a dutch licence plate)
         private const int AllowedDifferenceInAreasPercentage = 50;
-
+        
+        private Country _country;
 
         private List<FoundCharacter> _characterPlaces = new List<FoundCharacter>();
         public string Text = "";
 
+        public LicensePlate(Country country)
+        {
+            _country = country;
+        }
         public void Add(FoundCharacter foundCharacter)
         {
             _characterPlaces.Add(foundCharacter);
-            updateText();
+            UpdateText();
         }
 
+
+        /// <summary>
+        /// Check if licenceplate is valid licenceplate
+        /// </summary>
+        /// <returns>valid checks</returns>
         public bool IsValid() //sorts and checks
         {
-            InsertionSort();
-
-            if (_characterPlaces.Count != CharactersInLicensePlate)
-            {
+            if (_characterPlaces.Count != _country.Characters)
                 return false;
-            }
 
-            //if the difference in areas is more than 50%, then return false
-            var maxArea = _characterPlaces.MaxBy(x => x.Height).Height;
-            var minArea = _characterPlaces.MinBy(x => x.Height).Height;
-            return (double) minArea/maxArea*100 >= AllowedDifferenceInAreasPercentage;
+            //if the difference in heights is more than 50%, then return false
+            var maxHeight = _characterPlaces.MaxBy(x => x.Height).Height;
+            var minHeight = _characterPlaces.MinBy(x => x.Height).Height;
+            return (double) minHeight/maxHeight*100 >= AllowedDifferenceInAreasPercentage;
         }
 
         public void Sort()
@@ -59,33 +64,16 @@ namespace kentekenherkenning
                 _characterPlaces[I] = newElement;
             }
 
-            updateText();
+            UpdateText();
         }
 
-        private void updateText()
+        private void UpdateText()
         {
             Text = "";
             foreach (var ch in _characterPlaces)
             {
                 Text += ch.Text;
             }
-        }
-
-    }
-
-
-    //binding of point and text in one struct
-    public struct FoundCharacter
-    {
-        public Point Point;
-        public string Text;
-        public int Height;
-
-        public FoundCharacter(Point point, string text, int height)
-        {
-            Point = point;
-            Text = text;
-            Height = height;
         }
     }
 }
