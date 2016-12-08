@@ -62,7 +62,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ConsoleKeepTrackUtilities.cs" />
     <Compile Include="Exceptions\LicensePlateNotUnique.cs" />
     <Compile Include="FoundCharacter.cs" />
     <Compile Include="Country.cs" />
