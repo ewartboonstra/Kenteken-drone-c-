@@ -109,6 +109,7 @@
             this.cbShowBinarized.TabIndex = 21;
             this.cbShowBinarized.Text = "Show binarized ";
             this.cbShowBinarized.UseVisualStyleBackColor = true;
+            this.cbShowBinarized.CheckedChanged += new System.EventHandler(this.SpecialView);
             // 
             // cbShowContours
             // 
@@ -119,6 +120,7 @@
             this.cbShowContours.TabIndex = 20;
             this.cbShowContours.Text = "Show contours";
             this.cbShowContours.UseVisualStyleBackColor = true;
+            this.cbShowContours.CheckedChanged += new System.EventHandler(this.SpecialView);
             // 
             // groupBox3
             // 
@@ -453,7 +455,7 @@
             this.cbShowAngle.TabIndex = 0;
             this.cbShowAngle.Text = "Show angles";
             this.cbShowAngle.UseVisualStyleBackColor = true;
-            this.cbShowAngle.CheckedChanged += new System.EventHandler(this.cbAutoContrast_CheckedChanged);
+            this.cbShowAngle.CheckedChanged += new System.EventHandler(this.SpecialView);
             // 
             // ssMain
             // 

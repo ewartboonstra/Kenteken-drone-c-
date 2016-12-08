@@ -1,4 +1,5 @@
 ﻿using System;
+using System.CodeDom;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -25,12 +26,12 @@ namespace kentekenherkenning
 
         public bool IsUnique(LicensePlate licensePlate)
         {
-            return LicensePlates.Any(plate => plate.Text == licensePlate.Text);
+            return LicensePlates.All(plate => plate.Text != licensePlate.Text);
         }
 
         public void AddLicensePlate(LicensePlate licensePlate)
         {
-            LicensePlates.Add(licensePlate);
+           LicensePlates.Add(licensePlate);
             //visual list
             VisualList.Items.Add(licensePlate.Text);
         }

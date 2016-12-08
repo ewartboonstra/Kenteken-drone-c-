@@ -63,9 +63,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ConsoleKeepTrackUtilities.cs" />
+    <Compile Include="Exceptions\LicensePlateNotUnique.cs" />
     <Compile Include="FoundCharacter.cs" />
     <Compile Include="Country.cs" />
     <Compile Include="LicensePlate.cs" />
+    <Compile Include="Exceptions\LicensePlateException.cs" />
     <Compile Include="MainForm.cs">
       <SubType>Form</SubType>
     </Compile>
