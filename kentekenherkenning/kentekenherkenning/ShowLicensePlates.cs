@@ -16,11 +16,16 @@ namespace kentekenherkenning
     public partial class ShowLicensePlates : Form
     {
         public List<LicensePlate> LicensePlates { get; set; }= new List<LicensePlate>();
-
+        private MainForm Main;
 
         public ShowLicensePlates()
         {
             InitializeComponent();
+
+
+            Main = new MainForm();
+            Main.Show();
+
         }
 
 
@@ -63,5 +68,12 @@ namespace kentekenherkenning
             
                 
           }
+
+        private void ShowLicensePlates_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            Main.Visible = false;
+            Visible = false;
+            Environment.Exit(0);
+        }
     }
 }

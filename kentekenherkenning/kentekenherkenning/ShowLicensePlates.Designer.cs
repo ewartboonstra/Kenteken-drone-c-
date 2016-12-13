@@ -71,6 +71,7 @@
             this.Controls.Add(this.VisualList);
             this.Name = "ShowLicensePlates";
             this.Text = "Discovered License Plates";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.ShowLicensePlates_FormClosing);
             this.ResumeLayout(false);
 
         }

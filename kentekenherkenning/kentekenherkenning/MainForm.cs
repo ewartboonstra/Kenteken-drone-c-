@@ -48,8 +48,6 @@ namespace kentekenherkenning
 
             ApplySettings();
 
-            StartLicensePlateForm();
-
             InitializeCountries();
 
             //start server
@@ -87,13 +85,6 @@ namespace kentekenherkenning
                 Invoke(new Action(ProcessFrame));
 
             }
-        }
-
-
-        private void StartLicensePlateForm()
-        {
-            _licensePlateForm = new ShowLicensePlates();
-            _licensePlateForm.Show();
         }
 
         private void LoadTemplates(string fileName)
@@ -322,7 +313,8 @@ namespace kentekenherkenning
 
         private void MainForm_FormClosed(object sender, FormClosedEventArgs e)
         {
-            Application.Exit();
+            Visible = false;
+            Close();
         }
     }
 }
