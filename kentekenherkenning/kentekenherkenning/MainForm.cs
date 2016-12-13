@@ -165,12 +165,12 @@ namespace kentekenherkenning
                 if (!_licensePlateForm.IsUnique(licensePlate))
                 {
                     Console.WriteLine($"LicencePlate: {licensePlate.Text}, {country.Name} rejected.");
-                    Console.WriteLine("Reason: Licenseplate is not unique");
+                    Console.WriteLine("Reason: Licenseplate is not unique in list");
                     continue;
                 }
 
                 _licensePlateForm.AddLicensePlate(licensePlate);
-                Console.WriteLine($"LicencePlate: {licensePlate.Text}, {country.Name} rejected.");
+                Console.WriteLine($"LicencePlate: {licensePlate.Text}, {country.Name} accepted .");
                 break;
             }
         }
