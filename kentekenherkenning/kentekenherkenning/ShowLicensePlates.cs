@@ -1,4 +1,5 @@
 ﻿using System;
+using System.CodeDom;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -14,7 +15,7 @@ namespace kentekenherkenning
     //form made by Julian
     public partial class ShowLicensePlates : Form
     {
-        private List<LicensePlate> _licensePlates = new List<LicensePlate>();
+        public List<LicensePlate> LicensePlates { get; set; }= new List<LicensePlate>();
 
 
         public ShowLicensePlates()
@@ -22,20 +23,17 @@ namespace kentekenherkenning
             InitializeComponent();
         }
 
-        public void AddLicensePlate(LicensePlate lp)
+
+        public bool IsUnique(LicensePlate licensePlate)
         {
-            //check if the license plate is added already
-            bool alreadyAdded = _licensePlates.Find(recordLp => recordLp.Text == lp.Text) != null;
-            
-            /*check: 
-                * - if not already added
-                * */
-            if (!alreadyAdded)
-            {
-                _licensePlates.Add(lp);
-                //visual list
-                VisualList.Items.Add(lp.Text);
-            }
+            return LicensePlates.All(plate => plate.Text != licensePlate.Text);
+        }
+
+        public void AddLicensePlate(LicensePlate licensePlate)
+        {
+           LicensePlates.Add(licensePlate);
+            //visual list
+            VisualList.Items.Add(licensePlate.Text);
         }
 
         private void SelectAllBtn_Click(object sender, EventArgs e)
@@ -57,7 +55,7 @@ namespace kentekenherkenning
 
                     
 
-                    _licensePlates.RemoveAll(lp => lp.Text == text);
+                    LicensePlates.RemoveAll(lp => lp.Text == text);
 
 
                     VisualList.Items.Remove(checkedItem);

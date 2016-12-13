@@ -1,5 +1,6 @@
 ﻿using kentekenherkenning.MoreLinq;
 using System;
+using System.CodeDom;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
@@ -12,37 +13,34 @@ namespace kentekenherkenning
     //class made by Julian
     public class LicensePlate
     {
-        private const int AllowedDifferenceInAreasPercentage = 50;
-        
+        private const int AllowedDifference = 50;
         private Country _country;
 
-        private List<FoundCharacter> _characterPlaces = new List<FoundCharacter>();
+        private List<FoundCharacter> characters = new List<FoundCharacter>();
         public string Text = "";
 
         public LicensePlate(Country country)
         {
             _country = country;
         }
+
         public void Add(FoundCharacter foundCharacter)
         {
-            _characterPlaces.Add(foundCharacter);
+            characters.Add(foundCharacter);
             UpdateText();
         }
 
-
-        /// <summary>
-        /// Check if licenceplate is valid licenceplate
-        /// </summary>
-        /// <returns>valid checks</returns>
-        public bool IsValid() //sorts and checks
+        public bool IsValid() 
         {
-            if (_characterPlaces.Count != _country.Characters)
+            //compare amount of characters to country standard
+            if (characters.Count != _country.Characters)
                 return false;
 
-            //if the difference in heights is more than 50%, then return false
-            var maxHeight = _characterPlaces.MaxBy(x => x.Height).Height;
-            var minHeight = _characterPlaces.MinBy(x => x.Height).Height;
-            return (double) minHeight/maxHeight*100 >= AllowedDifferenceInAreasPercentage;
+
+            //check difference in letterheight
+            var maxHeight = characters.MaxBy(x => x.Height).Height;
+            var minHeight = characters.MinBy(x => x.Height).Height;
+            return (double) minHeight/maxHeight*100 >= AllowedDifference;
         }
 
         public void Sort()
@@ -52,16 +50,15 @@ namespace kentekenherkenning
 
         private void InsertionSort()
         {
-            
-            for (int I = 1; I < _characterPlaces.Count; I++)
+            for (int I = 1; I < characters.Count; I++)
             {
-                var newElement = _characterPlaces[I];
-                while ((I - 1 >= 0) && (newElement.Point.X < _characterPlaces[I - 1].Point.X))
+                var newElement = characters[I];
+                while ((I - 1 >= 0) && (newElement.Point.X < characters[I - 1].Point.X))
                 {
-                    _characterPlaces[I] = _characterPlaces[I - 1];
+                    characters[I] = characters[I - 1];
                     I--;
                 }
-                _characterPlaces[I] = newElement;
+                characters[I] = newElement;
             }
 
             UpdateText();
@@ -70,7 +67,7 @@ namespace kentekenherkenning
         private void UpdateText()
         {
             Text = "";
-            foreach (var ch in _characterPlaces)
+            foreach (var ch in characters)
             {
                 Text += ch.Text;
             }

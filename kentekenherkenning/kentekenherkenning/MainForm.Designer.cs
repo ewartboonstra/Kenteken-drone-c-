@@ -109,6 +109,7 @@
             this.cbShowBinarized.TabIndex = 21;
             this.cbShowBinarized.Text = "Show binarized ";
             this.cbShowBinarized.UseVisualStyleBackColor = true;
+            this.cbShowBinarized.CheckedChanged += new System.EventHandler(this.SpecialView);
             // 
             // cbShowContours
             // 
@@ -119,6 +120,7 @@
             this.cbShowContours.TabIndex = 20;
             this.cbShowContours.Text = "Show contours";
             this.cbShowContours.UseVisualStyleBackColor = true;
+            this.cbShowContours.CheckedChanged += new System.EventHandler(this.SpecialView);
             // 
             // groupBox3
             // 
@@ -316,7 +318,7 @@
             this.nudMinContourLength.Size = new System.Drawing.Size(78, 20);
             this.nudMinContourLength.TabIndex = 7;
             this.nudMinContourLength.Value = new decimal(new int[] {
-            100,
+            15,
             0,
             0,
             0});
@@ -394,7 +396,7 @@
             this.nudAdaptiveThBlockSize.Size = new System.Drawing.Size(78, 20);
             this.nudAdaptiveThBlockSize.TabIndex = 11;
             this.nudAdaptiveThBlockSize.Value = new decimal(new int[] {
-            200,
+            4,
             0,
             0,
             0});
@@ -453,7 +455,7 @@
             this.cbShowAngle.TabIndex = 0;
             this.cbShowAngle.Text = "Show angles";
             this.cbShowAngle.UseVisualStyleBackColor = true;
-            this.cbShowAngle.CheckedChanged += new System.EventHandler(this.cbAutoContrast_CheckedChanged);
+            this.cbShowAngle.CheckedChanged += new System.EventHandler(this.SpecialView);
             // 
             // ssMain
             // 

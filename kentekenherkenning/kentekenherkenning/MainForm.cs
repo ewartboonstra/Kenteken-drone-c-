@@ -1,16 +1,4 @@
-﻿//
-//  THIS CODE AND INFORMATION IS PROVIDED "AS IS" WITHOUT WARRANTY OF ANY
-//  KIND, EITHER EXPRESSED OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE
-//  IMPLIED WARRANTIES OF MERCHANTABILITY AND/OR FITNESS FOR A PARTICULAR
-//  PURPOSE.
-//
-//  License: GNU General Public License version 3 (GPLv3)
-//
-//  Email: pavel_torgashov@mail.ru.
-//
-//  Copyright (C) Pavel Torgashov, 2011. 
-
-using System;
+﻿using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Drawing;
@@ -28,20 +16,20 @@ namespace kentekenherkenning
 {
     public partial class MainForm : Form
     {
-        private Image<Bgr, Byte> frame;
+        private Image<Bgr, Byte> image;
+
 
         ImageProcessor processor;
 
         Dictionary<string, Image> AugmentedRealityImages = new Dictionary<string, Image>();
-        private List<Country> TemplateList; 
+
+        private List<Country> CountryList; 
+
         bool showAngle;
 
-        string templateFile;
-
         private ShowLicensePlates _licensePlateForm;
-        private Thread _imagelistenerThread;
-
-        private readonly ConsoleKeepTrackUtilities consoleUtilities = new ConsoleKeepTrackUtilities();
+        private string templateFile;
+        private Thread ServerThread;
 
         //Paint-method variables
         private Font font;
@@ -55,20 +43,18 @@ namespace kentekenherkenning
             InitializeComponent();
 
             font = new Font(Font.FontFamily, 24);//16
-
-            //create image processor
+            
             processor = new ImageProcessor();
 
-            //apply settings
             ApplySettings();
 
             StartLicensePlateForm();
 
             InitializeCountries();
 
-            //stard server thread
-            _imagelistenerThread = new Thread(new ThreadStart(RunConnectionServer));
-            _imagelistenerThread.Start();
+            //start server
+            ServerThread = new Thread(new ThreadStart(RunConnectionServer));
+            ServerThread.Start();
         }
 
 
@@ -78,10 +64,10 @@ namespace kentekenherkenning
         public void InitializeCountries()
         {
 
-            TemplateList = new List<Country>();
+            CountryList = new List<Country>();
 
             Country netherlands = new Country("Nederland", 6, "Nederlands");
-            TemplateList.Add(netherlands);
+            CountryList.Add(netherlands);
         }
 
         /// <summary>
@@ -89,17 +75,15 @@ namespace kentekenherkenning
         /// </summary>
         private void RunConnectionServer()
         {
-            //start server klasse
             ServerConnection s = new ServerConnection();
 
-            //maak verbinding
             s.SetConnection();
             while (true)
             {
                 Image message = s.WaitForImage();
 
                 Image<Bgr, byte> receivedImage = new Image<Bgr, byte>((Bitmap)message);
-                Invoke(new Action(() => frame = receivedImage));
+                Invoke(new Action(() => image = receivedImage));
                 Invoke(new Action(ProcessFrame));
 
             }
@@ -138,23 +122,28 @@ namespace kentekenherkenning
             }
         }
 
+
+        //redraw image on changing settings
+        private void SpecialView(object sender, EventArgs e)
+        {
+            if (cbShowBinarized.Checked)
+                ibMain.Image = processor.binarizedFrame;
+            else
+                ibMain.Image = image;
+            Invalidate();        
+        }
         /// <summary>
-        /// process most recent frame saved
+        /// process most recent image saved
         /// </summary>
         private void ProcessFrame()
         {
-            foreach (Country country in TemplateList)
+            foreach (Country country in CountryList)
             {
                 try
                 {
                     LoadTemplates(country.TemplateLocation);
-
-                    processor.ProcessImage(frame);
-
-                    if (cbShowBinarized.Checked)
-                        ibMain.Image = processor.binarizedFrame;
-                    else
-                        ibMain.Image = frame;
+                    processor.ProcessImage(image);
+                    ibMain.Image = image;
                 }
                 catch (Exception ex)
                 {
@@ -162,17 +151,27 @@ namespace kentekenherkenning
                 }
 
                 LicensePlate licensePlate = ProcessLicensePlate(country);
-            
-                //add the license plate to the list (made by Julian)
-                if (licensePlate.IsValid())
+               
+                //add the license plate to the list
+                if (!licensePlate.IsValid())
                 {
-                    licensePlate.Sort();
-                    _licensePlateForm.AddLicensePlate(licensePlate);
-                    consoleUtilities.WriteOnce($"LicencePlate: {licensePlate.Text} saved. Country: {country.Name}");
-                    break;
+                    Console.WriteLine($"LicencePlate: {licensePlate.Text}, {country.Name} rejected.");
+                    Console.WriteLine("Reason: Licenseplate is not valid");
+                    continue;
                 }
-                else
-                    consoleUtilities.WriteOnce($"LicencePlate: {licensePlate.Text} rejected. Country: {country.Name}");
+
+                licensePlate.Sort();
+
+                if (!_licensePlateForm.IsUnique(licensePlate))
+                {
+                    Console.WriteLine($"LicencePlate: {licensePlate.Text}, {country.Name} rejected.");
+                    Console.WriteLine("Reason: Licenseplate is not unique in list");
+                    continue;
+                }
+
+                _licensePlateForm.AddLicensePlate(licensePlate);
+                Console.WriteLine($"LicencePlate: {licensePlate.Text}, {country.Name} accepted .");
+                break;
             }
         }
 
@@ -241,7 +240,7 @@ namespace kentekenherkenning
         }
 
         /// <summary>
-        /// Paint objects on screen after updating frame.
+        /// Paint objects on screen after updating image.
         /// </summary>
         private void ibMain_Paint(object sender, PaintEventArgs e)
         {
@@ -312,7 +311,7 @@ namespace kentekenherkenning
             if (ofd.ShowDialog(this) == System.Windows.Forms.DialogResult.OK)
                 try
                 {
-                    frame = new Image<Bgr, byte>((Bitmap)Bitmap.FromFile(ofd.FileName));
+                    image = new Image<Bgr, byte>((Bitmap)Bitmap.FromFile(ofd.FileName));
                     ProcessFrame();
                 }
                 catch (Exception ex)
