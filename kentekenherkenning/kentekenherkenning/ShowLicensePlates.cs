@@ -59,9 +59,16 @@ namespace kentekenherkenning
 
 
                     VisualList.Items.Remove(checkedItem);
-                } 
-            
-                
+                }
           }
+
+        private void VisualList_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            var selectedItem = (string) VisualList.SelectedItems[0];
+
+            var designatedLicensePlate = LicensePlates.Find(lp => lp.Text == selectedItem);
+            var pictureToShow = designatedLicensePlate.BasePicture;
+            PlatePictureBox.Image = pictureToShow;
+        }
     }
 }

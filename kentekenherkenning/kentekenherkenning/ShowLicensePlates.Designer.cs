@@ -28,9 +28,12 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.VisualList = new System.Windows.Forms.CheckedListBox();
             this.SelectAllBtn = new System.Windows.Forms.Button();
             this.DeleteBtn = new System.Windows.Forms.Button();
+            this.PlatePictureBox = new Emgu.CV.UI.ImageBox();
+            ((System.ComponentModel.ISupportInitialize)(this.PlatePictureBox)).BeginInit();
             this.SuspendLayout();
             // 
             // VisualList
@@ -40,6 +43,7 @@
             this.VisualList.Name = "VisualList";
             this.VisualList.Size = new System.Drawing.Size(248, 154);
             this.VisualList.TabIndex = 0;
+            this.VisualList.SelectedIndexChanged += new System.EventHandler(this.VisualList_SelectedIndexChanged);
             // 
             // SelectAllBtn
             // 
@@ -61,16 +65,26 @@
             this.DeleteBtn.UseVisualStyleBackColor = true;
             this.DeleteBtn.Click += new System.EventHandler(this.DeleteBtn_Click);
             // 
+            // PlatePictureBox
+            // 
+            this.PlatePictureBox.Location = new System.Drawing.Point(271, 26);
+            this.PlatePictureBox.Name = "PlatePictureBox";
+            this.PlatePictureBox.Size = new System.Drawing.Size(364, 154);
+            this.PlatePictureBox.TabIndex = 4;
+            this.PlatePictureBox.TabStop = false;
+            // 
             // ShowLicensePlates
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(284, 261);
+            this.ClientSize = new System.Drawing.Size(647, 237);
+            this.Controls.Add(this.PlatePictureBox);
             this.Controls.Add(this.DeleteBtn);
             this.Controls.Add(this.SelectAllBtn);
             this.Controls.Add(this.VisualList);
             this.Name = "ShowLicensePlates";
             this.Text = "Discovered License Plates";
+            ((System.ComponentModel.ISupportInitialize)(this.PlatePictureBox)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -80,5 +94,6 @@
         private System.Windows.Forms.CheckedListBox VisualList;
         private System.Windows.Forms.Button SelectAllBtn;
         private System.Windows.Forms.Button DeleteBtn;
+        private Emgu.CV.UI.ImageBox PlatePictureBox;
     }
 }

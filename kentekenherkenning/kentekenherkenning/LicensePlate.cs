@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms.VisualStyles;
+using Emgu.CV;
 
 namespace kentekenherkenning
 {
@@ -19,9 +20,12 @@ namespace kentekenherkenning
         private List<FoundCharacter> characters = new List<FoundCharacter>();
         public string Text = "";
 
-        public LicensePlate(Country country)
+        public IImage BasePicture {get; private set;}
+
+        public LicensePlate(Country country, IImage basePicture)
         {
             _country = country;
+            BasePicture = basePicture;
         }
 
         public void Add(FoundCharacter foundCharacter)

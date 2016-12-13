@@ -18,7 +18,6 @@ namespace kentekenherkenning
     {
         private Image<Bgr, Byte> image;
 
-
         ImageProcessor processor;
 
         Dictionary<string, Image> AugmentedRealityImages = new Dictionary<string, Image>();
@@ -221,7 +220,7 @@ namespace kentekenherkenning
         /// <returns> Licenceplate found</returns>
         private LicensePlate ProcessLicensePlate(Country country)
         {
-            LicensePlate licensePlate = new LicensePlate(country);
+            LicensePlate licensePlate = new LicensePlate(country, image);
 
             lock (processor.foundTemplates)
                 foreach (FoundTemplateDesc found in processor.foundTemplates)
