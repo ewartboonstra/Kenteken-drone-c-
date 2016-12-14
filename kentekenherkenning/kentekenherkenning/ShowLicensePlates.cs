@@ -23,7 +23,7 @@ namespace kentekenherkenning
             InitializeComponent();
 
 
-            Main = new MainForm();
+            Main = new MainForm(this);
             Main.Show();
 
         }
@@ -64,16 +64,33 @@ namespace kentekenherkenning
 
 
                     VisualList.Items.Remove(checkedItem);
-                } 
-            
-                
+                }
           }
+
 
         private void ShowLicensePlates_FormClosing(object sender, FormClosingEventArgs e)
         {
             Main.Visible = false;
             Visible = false;
             Environment.Exit(0);
+        }
+
+        private void VisualList_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            try
+            {
+                var selectedItem = (string) VisualList.SelectedItems[0];
+
+                var designatedLicensePlate = LicensePlates.Find(lp => lp.Text == selectedItem);
+                var pictureToShow = designatedLicensePlate.BasePicture;
+                PlatePictureBox.Image = pictureToShow;
+            }
+            catch (NullReferenceException)
+            {
+                
+            }
+            
+
         }
     }
 }

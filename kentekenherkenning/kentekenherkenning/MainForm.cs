@@ -18,7 +18,6 @@ namespace kentekenherkenning
     {
         private Image<Bgr, Byte> image;
 
-
         ImageProcessor processor;
 
         Dictionary<string, Image> AugmentedRealityImages = new Dictionary<string, Image>();
@@ -38,9 +37,10 @@ namespace kentekenherkenning
         Pen borderPen = new Pen(Color.FromArgb(150, 0, 255, 0));
 
 
-        public MainForm()
+        public MainForm(ShowLicensePlates licensePlateForm)
         {
             InitializeComponent();
+            _licensePlateForm = licensePlateForm;
 
             font = new Font(Font.FontFamily, 24);//16
             
@@ -53,6 +53,8 @@ namespace kentekenherkenning
             //start server
             ServerThread = new Thread(new ThreadStart(RunConnectionServer));
             ServerThread.Start();
+
+
         }
 
 
@@ -212,7 +214,7 @@ namespace kentekenherkenning
         /// <returns> Licenceplate found</returns>
         private LicensePlate ProcessLicensePlate(Country country)
         {
-            LicensePlate licensePlate = new LicensePlate(country);
+            LicensePlate licensePlate = new LicensePlate(country, image);
 
             lock (processor.foundTemplates)
                 foreach (FoundTemplateDesc found in processor.foundTemplates)
@@ -288,7 +290,7 @@ namespace kentekenherkenning
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message);
+                MessageBox.Show("Fout in functie: ApplySettings()" + ex.Message);
             }
         }
 
@@ -300,15 +302,15 @@ namespace kentekenherkenning
             OpenFileDialog ofd = new OpenFileDialog();
             ofd.Filter = "Image|*.bmp;*.png;*.jpg;*.jpeg";
             if (ofd.ShowDialog(this) == System.Windows.Forms.DialogResult.OK)
-                try
-                {
+                /*try
+                {*/
                     image = new Image<Bgr, byte>((Bitmap)Bitmap.FromFile(ofd.FileName));
                     ProcessFrame();
-                }
+                /*}
                 catch (Exception ex)
                 {
-                    MessageBox.Show(ex.Message);
-                }
+                    MessageBox.Show("Fout in functie 'btLoadImage_Click()' "+ex.Message);
+                }*/
         }
 
         private void MainForm_FormClosed(object sender, FormClosedEventArgs e)
