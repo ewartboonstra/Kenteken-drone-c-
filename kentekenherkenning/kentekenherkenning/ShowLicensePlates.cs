@@ -9,6 +9,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using Emgu.CV;
 
 namespace kentekenherkenning
 {
@@ -85,11 +86,10 @@ namespace kentekenherkenning
                 var pictureToShow = designatedLicensePlate.BasePicture;
                 PlatePictureBox.Image = pictureToShow;
             }
-            catch (NullReferenceException)
+            catch (IndexOutOfRangeException)
             {
-                
+                PlatePictureBox.Image = null;
             }
-            
 
         }
     }
