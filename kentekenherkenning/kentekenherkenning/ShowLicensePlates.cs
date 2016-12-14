@@ -59,10 +59,7 @@ namespace kentekenherkenning
                     var checkedItem = VisualList.CheckedItems[i];
                     var text = (string) checkedItem;
 
-                    
-
                     LicensePlates.RemoveAll(lp => lp.Text == text);
-
 
                     VisualList.Items.Remove(checkedItem);
                 }
@@ -76,21 +73,21 @@ namespace kentekenherkenning
             Environment.Exit(0);
         }
 
+        //show image of selected item.
+        
         private void VisualList_SelectedIndexChanged(object sender, EventArgs e)
         {
             try
             {
-                var selectedItem = (string) VisualList.SelectedItems[0];
-
-                var designatedLicensePlate = LicensePlates.Find(lp => lp.Text == selectedItem);
-                var pictureToShow = designatedLicensePlate.BasePicture;
+                string selectedItem = (string) VisualList.SelectedItems[0];
+                LicensePlate designatedLicensePlate = LicensePlates.Find(lp => lp.Text == selectedItem);
+                IImage pictureToShow = designatedLicensePlate.BasePicture;
                 PlatePictureBox.Image = pictureToShow;
             }
             catch (IndexOutOfRangeException)
             {
                 PlatePictureBox.Image = null;
             }
-
         }
     }
 }

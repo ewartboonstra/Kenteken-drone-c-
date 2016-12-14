@@ -301,16 +301,11 @@ namespace kentekenherkenning
         {
             OpenFileDialog ofd = new OpenFileDialog();
             ofd.Filter = "Image|*.bmp;*.png;*.jpg;*.jpeg";
-            if (ofd.ShowDialog(this) == System.Windows.Forms.DialogResult.OK)
-                /*try
-                {*/
-                    image = new Image<Bgr, byte>((Bitmap)Bitmap.FromFile(ofd.FileName));
-                    ProcessFrame();
-                /*}
-                catch (Exception ex)
-                {
-                    MessageBox.Show("Fout in functie 'btLoadImage_Click()' "+ex.Message);
-                }*/
+            if (ofd.ShowDialog(this) == DialogResult.OK)
+            {
+                image = new Image<Bgr, byte>((Bitmap) Bitmap.FromFile(ofd.FileName));
+                ProcessFrame();
+            }
         }
 
         private void MainForm_FormClosed(object sender, FormClosedEventArgs e)
