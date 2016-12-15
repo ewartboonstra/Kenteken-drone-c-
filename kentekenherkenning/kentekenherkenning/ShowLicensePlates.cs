@@ -11,6 +11,9 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using Emgu.CV;
 
+
+
+
 namespace kentekenherkenning
 {
     //form made by Julian
@@ -88,6 +91,15 @@ namespace kentekenherkenning
             {
                 PlatePictureBox.Image = null;
             }
+        }
+
+        private void Advanced_Click(object sender, EventArgs e)
+        {
+            if (Main.IsDisposed)
+            {
+                Main = new MainForm(this);
+            }
+            Main.Visible = true;
         }
     }
 }

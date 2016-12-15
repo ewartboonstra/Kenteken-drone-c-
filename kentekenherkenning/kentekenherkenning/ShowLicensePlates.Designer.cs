@@ -33,6 +33,7 @@
             this.SelectAllBtn = new System.Windows.Forms.Button();
             this.DeleteBtn = new System.Windows.Forms.Button();
             this.PlatePictureBox = new Emgu.CV.UI.ImageBox();
+            this.AdvancedBtn = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.PlatePictureBox)).BeginInit();
             this.SuspendLayout();
             // 
@@ -73,22 +74,30 @@
             this.PlatePictureBox.TabIndex = 4;
             this.PlatePictureBox.TabStop = false;
             // 
+            // AdvancedBtn
+            // 
+            this.AdvancedBtn.Location = new System.Drawing.Point(559, 202);
+            this.AdvancedBtn.Name = "AdvancedBtn";
+            this.AdvancedBtn.Size = new System.Drawing.Size(75, 23);
+            this.AdvancedBtn.TabIndex = 5;
+            this.AdvancedBtn.Text = "Advanced...";
+            this.AdvancedBtn.UseVisualStyleBackColor = true;
+            this.AdvancedBtn.Click += new System.EventHandler(this.Advanced_Click);
+            // 
             // ShowLicensePlates
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(647, 237);
+            this.Controls.Add(this.AdvancedBtn);
             this.Controls.Add(this.PlatePictureBox);
             this.Controls.Add(this.DeleteBtn);
             this.Controls.Add(this.SelectAllBtn);
             this.Controls.Add(this.VisualList);
             this.Name = "ShowLicensePlates";
             this.Text = "Discovered License Plates";
-
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.ShowLicensePlates_FormClosing);
-
             ((System.ComponentModel.ISupportInitialize)(this.PlatePictureBox)).EndInit();
-
             this.ResumeLayout(false);
 
         }
@@ -99,5 +108,6 @@
         private System.Windows.Forms.Button SelectAllBtn;
         private System.Windows.Forms.Button DeleteBtn;
         private Emgu.CV.UI.ImageBox PlatePictureBox;
+        private System.Windows.Forms.Button AdvancedBtn;
     }
 }

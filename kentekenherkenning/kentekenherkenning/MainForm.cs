@@ -311,7 +311,7 @@ namespace kentekenherkenning
         private void MainForm_FormClosed(object sender, FormClosedEventArgs e)
         {
             Visible = false;
-            Close();
+            
         }
     }
 }
