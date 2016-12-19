@@ -11,9 +11,6 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using Emgu.CV;
 
-
-
-
 namespace kentekenherkenning
 {
     //form made by Julian
@@ -77,7 +74,6 @@ namespace kentekenherkenning
         }
 
         //show image of selected item.
-        
         private void VisualList_SelectedIndexChanged(object sender, EventArgs e)
         {
             try

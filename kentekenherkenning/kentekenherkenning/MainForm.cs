@@ -117,19 +117,19 @@ namespace kentekenherkenning
 
 
         //redraw image on changing settings
-        private void SpecialView(object sender, EventArgs e)
+        private void UpdateView(object sender, EventArgs e)
         {
-            if (cbShowBinarized.Checked)
-                ibMain.Image = processor.binarizedFrame;
-            else
-                ibMain.Image = image;
-            Invalidate();        
+
+            ProcessFrame();
+
+
         }
         /// <summary>
         /// process most recent image saved
         /// </summary>
         private void ProcessFrame()
         {
+
             foreach (Country country in CountryList)
             {
                 try
@@ -166,6 +166,13 @@ namespace kentekenherkenning
                 Console.WriteLine($"LicencePlate: {licensePlate.Text}, {country.Name} accepted .");
                 break;
             }
+            
+
+            if (cbShowBinarized.Checked)
+                ibMain.Image = processor.binarizedFrame;
+            else
+                ibMain.Image = image;
+            Invalidate();
         }
 
         /// <summary>
@@ -264,6 +271,7 @@ namespace kentekenherkenning
         private void cbAutoContrast_CheckedChanged(object sender, EventArgs e)
         {
             ApplySettings();
+            UpdateView(null, null);
         }
 
         private void ApplySettings()
