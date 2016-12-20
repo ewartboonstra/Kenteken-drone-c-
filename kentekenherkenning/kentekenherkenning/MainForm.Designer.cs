@@ -30,9 +30,6 @@
         {
             this.components = new System.ComponentModel.Container();
             System.Windows.Forms.Panel pnSettings;
-            this.ibMain = new Emgu.CV.UI.ImageBox();
-            this.cbShowBinarized = new System.Windows.Forms.CheckBox();
-            this.cbShowContours = new System.Windows.Forms.CheckBox();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.nudMaxACFdesc = new System.Windows.Forms.NumericUpDown();
             this.nudMinACF = new System.Windows.Forms.NumericUpDown();
@@ -49,15 +46,17 @@
             this.nudMinContourArea = new System.Windows.Forms.NumericUpDown();
             this.label3 = new System.Windows.Forms.Label();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.cbAdaptiveNoiseFilter = new System.Windows.Forms.CheckBox();
             this.nudAdaptiveThBlockSize = new System.Windows.Forms.NumericUpDown();
-            this.label7 = new System.Windows.Forms.Label();
+            this.cbShowContours = new System.Windows.Forms.CheckBox();
+            this.cbAdaptiveNoiseFilter = new System.Windows.Forms.CheckBox();
+            this.cbShowBinarized = new System.Windows.Forms.CheckBox();
+            this.cbShowAngle = new System.Windows.Forms.CheckBox();
             this.cbBlur = new System.Windows.Forms.CheckBox();
             this.btLoadImage = new System.Windows.Forms.Button();
+            this.label7 = new System.Windows.Forms.Label();
             this.cbAutoContrast = new System.Windows.Forms.CheckBox();
-            this.cbShowAngle = new System.Windows.Forms.CheckBox();
+            this.ibMain = new Emgu.CV.UI.ImageBox();
             pnSettings = new System.Windows.Forms.Panel();
-            ((System.ComponentModel.ISupportInitialize)(this.ibMain)).BeginInit();
             pnSettings.SuspendLayout();
             this.groupBox3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nudMaxACFdesc)).BeginInit();
@@ -69,17 +68,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.nudMinContourArea)).BeginInit();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nudAdaptiveThBlockSize)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.ibMain)).BeginInit();
             this.SuspendLayout();
-            // 
-            // ibMain
-            // 
-            this.ibMain.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.ibMain.Location = new System.Drawing.Point(0, 0);
-            this.ibMain.Name = "ibMain";
-            this.ibMain.Size = new System.Drawing.Size(672, 364);
-            this.ibMain.TabIndex = 2;
-            this.ibMain.TabStop = false;
-            this.ibMain.Paint += new System.Windows.Forms.PaintEventHandler(this.ibMain_Paint);
             // 
             // pnSettings
             // 
@@ -92,28 +82,6 @@
             pnSettings.Name = "pnSettings";
             pnSettings.Size = new System.Drawing.Size(672, 146);
             pnSettings.TabIndex = 3;
-            // 
-            // cbShowBinarized
-            // 
-            this.cbShowBinarized.AutoSize = true;
-            this.cbShowBinarized.Location = new System.Drawing.Point(10, 76);
-            this.cbShowBinarized.Name = "cbShowBinarized";
-            this.cbShowBinarized.Size = new System.Drawing.Size(101, 17);
-            this.cbShowBinarized.TabIndex = 21;
-            this.cbShowBinarized.Text = "Show binarized ";
-            this.cbShowBinarized.UseVisualStyleBackColor = true;
-            this.cbShowBinarized.CheckedChanged += new System.EventHandler(this.SpecialView);
-            // 
-            // cbShowContours
-            // 
-            this.cbShowContours.AutoSize = true;
-            this.cbShowContours.Location = new System.Drawing.Point(9, 99);
-            this.cbShowContours.Name = "cbShowContours";
-            this.cbShowContours.Size = new System.Drawing.Size(97, 17);
-            this.cbShowContours.TabIndex = 20;
-            this.cbShowContours.Text = "Show contours";
-            this.cbShowContours.UseVisualStyleBackColor = true;
-            this.cbShowContours.CheckedChanged += new System.EventHandler(this.SpecialView);
             // 
             // groupBox3
             // 
@@ -362,19 +330,6 @@
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Source";
             // 
-            // cbAdaptiveNoiseFilter
-            // 
-            this.cbAdaptiveNoiseFilter.AutoSize = true;
-            this.cbAdaptiveNoiseFilter.Checked = true;
-            this.cbAdaptiveNoiseFilter.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.cbAdaptiveNoiseFilter.Location = new System.Drawing.Point(204, 57);
-            this.cbAdaptiveNoiseFilter.Name = "cbAdaptiveNoiseFilter";
-            this.cbAdaptiveNoiseFilter.Size = new System.Drawing.Size(75, 17);
-            this.cbAdaptiveNoiseFilter.TabIndex = 13;
-            this.cbAdaptiveNoiseFilter.Text = "Noise filter";
-            this.cbAdaptiveNoiseFilter.UseVisualStyleBackColor = true;
-            this.cbAdaptiveNoiseFilter.CheckedChanged += new System.EventHandler(this.cbAutoContrast_CheckedChanged);
-            // 
             // nudAdaptiveThBlockSize
             // 
             this.nudAdaptiveThBlockSize.Location = new System.Drawing.Point(120, 56);
@@ -398,14 +353,51 @@
             0});
             this.nudAdaptiveThBlockSize.ValueChanged += new System.EventHandler(this.cbAutoContrast_CheckedChanged);
             // 
-            // label7
+            // cbShowContours
             // 
-            this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(117, 42);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(145, 13);
-            this.label7.TabIndex = 12;
-            this.label7.Text = "Adaptive threshold block size";
+            this.cbShowContours.AutoSize = true;
+            this.cbShowContours.Location = new System.Drawing.Point(9, 99);
+            this.cbShowContours.Name = "cbShowContours";
+            this.cbShowContours.Size = new System.Drawing.Size(97, 17);
+            this.cbShowContours.TabIndex = 20;
+            this.cbShowContours.Text = "Show contours";
+            this.cbShowContours.UseVisualStyleBackColor = true;
+            this.cbShowContours.CheckedChanged += new System.EventHandler(this.SpecialView);
+            // 
+            // cbAdaptiveNoiseFilter
+            // 
+            this.cbAdaptiveNoiseFilter.AutoSize = true;
+            this.cbAdaptiveNoiseFilter.Checked = true;
+            this.cbAdaptiveNoiseFilter.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.cbAdaptiveNoiseFilter.Location = new System.Drawing.Point(204, 57);
+            this.cbAdaptiveNoiseFilter.Name = "cbAdaptiveNoiseFilter";
+            this.cbAdaptiveNoiseFilter.Size = new System.Drawing.Size(75, 17);
+            this.cbAdaptiveNoiseFilter.TabIndex = 13;
+            this.cbAdaptiveNoiseFilter.Text = "Noise filter";
+            this.cbAdaptiveNoiseFilter.UseVisualStyleBackColor = true;
+            this.cbAdaptiveNoiseFilter.CheckedChanged += new System.EventHandler(this.cbAutoContrast_CheckedChanged);
+            // 
+            // cbShowBinarized
+            // 
+            this.cbShowBinarized.AutoSize = true;
+            this.cbShowBinarized.Location = new System.Drawing.Point(10, 76);
+            this.cbShowBinarized.Name = "cbShowBinarized";
+            this.cbShowBinarized.Size = new System.Drawing.Size(101, 17);
+            this.cbShowBinarized.TabIndex = 21;
+            this.cbShowBinarized.Text = "Show binarized ";
+            this.cbShowBinarized.UseVisualStyleBackColor = true;
+            this.cbShowBinarized.CheckedChanged += new System.EventHandler(this.SpecialView);
+            // 
+            // cbShowAngle
+            // 
+            this.cbShowAngle.AutoSize = true;
+            this.cbShowAngle.Location = new System.Drawing.Point(120, 99);
+            this.cbShowAngle.Name = "cbShowAngle";
+            this.cbShowAngle.Size = new System.Drawing.Size(87, 17);
+            this.cbShowAngle.TabIndex = 0;
+            this.cbShowAngle.Text = "Show angles";
+            this.cbShowAngle.UseVisualStyleBackColor = true;
+            this.cbShowAngle.CheckedChanged += new System.EventHandler(this.SpecialView);
             // 
             // cbBlur
             // 
@@ -431,6 +423,15 @@
             this.btLoadImage.UseVisualStyleBackColor = true;
             this.btLoadImage.Click += new System.EventHandler(this.btLoadImage_Click);
             // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Location = new System.Drawing.Point(117, 42);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(145, 13);
+            this.label7.TabIndex = 12;
+            this.label7.Text = "Adaptive threshold block size";
+            // 
             // cbAutoContrast
             // 
             this.cbAutoContrast.AutoSize = true;
@@ -442,16 +443,15 @@
             this.cbAutoContrast.UseVisualStyleBackColor = true;
             this.cbAutoContrast.CheckedChanged += new System.EventHandler(this.cbAutoContrast_CheckedChanged);
             // 
-            // cbShowAngle
+            // ibMain
             // 
-            this.cbShowAngle.AutoSize = true;
-            this.cbShowAngle.Location = new System.Drawing.Point(120, 99);
-            this.cbShowAngle.Name = "cbShowAngle";
-            this.cbShowAngle.Size = new System.Drawing.Size(87, 17);
-            this.cbShowAngle.TabIndex = 0;
-            this.cbShowAngle.Text = "Show angles";
-            this.cbShowAngle.UseVisualStyleBackColor = true;
-            this.cbShowAngle.CheckedChanged += new System.EventHandler(this.SpecialView);
+            this.ibMain.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.ibMain.Location = new System.Drawing.Point(0, 0);
+            this.ibMain.Name = "ibMain";
+            this.ibMain.Size = new System.Drawing.Size(672, 364);
+            this.ibMain.TabIndex = 2;
+            this.ibMain.TabStop = false;
+            this.ibMain.Paint += new System.Windows.Forms.PaintEventHandler(this.ibMain_Paint);
             // 
             // MainForm
             // 
@@ -463,7 +463,6 @@
             this.Name = "MainForm";
             this.Text = "Licenseplate recognition";
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.MainForm_FormClosed);
-            ((System.ComponentModel.ISupportInitialize)(this.ibMain)).EndInit();
             pnSettings.ResumeLayout(false);
             this.groupBox3.ResumeLayout(false);
             this.groupBox3.PerformLayout();
@@ -478,6 +477,7 @@
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nudAdaptiveThBlockSize)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.ibMain)).EndInit();
             this.ResumeLayout(false);
 
         }

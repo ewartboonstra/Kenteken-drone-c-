@@ -49,6 +49,9 @@
     <Reference Include="Emgu.Util">
       <HintPath>..\CAProcessing\Emgu.Util.dll</HintPath>
     </Reference>
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>..\packages\Newtonsoft.Json.9.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -100,6 +103,7 @@
     <EmbeddedResource Include="ShowLicensePlates.resx">
       <DependentUpon>ShowLicensePlates.cs</DependentUpon>
     </EmbeddedResource>
+    <None Include="json1.json" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>

@@ -81,7 +81,7 @@ namespace kentekenherkenning
             {
                 string selectedItem = (string) VisualList.SelectedItems[0];
                 LicensePlate designatedLicensePlate = LicensePlates.Find(lp => lp.Text == selectedItem);
-                IImage pictureToShow = designatedLicensePlate.BasePicture;
+                IImage pictureToShow = designatedLicensePlate.Image;
                 PlatePictureBox.Image = pictureToShow;
             }
             catch (IndexOutOfRangeException)

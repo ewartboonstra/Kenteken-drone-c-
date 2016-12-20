@@ -8,24 +8,33 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms.VisualStyles;
 using Emgu.CV;
+using Emgu.CV.Structure;
+using Newtonsoft.Json;
 
 namespace kentekenherkenning
 {
-    //class made by Julian
     public class LicensePlate
     {
         private const int AllowedDifference = 50;
-        private Country _country;
+        public Country Country { get; set; }
 
         private List<FoundCharacter> characters = new List<FoundCharacter>();
         public string Text { get; set; }= "";
 
-        public IImage BasePicture {get; private set;}
+        public Image<Bgr, Byte> Image {get; private set;}
+        public string Gps { get; set; }
+        public string TimeStamp { get; set; }
 
-        public LicensePlate(Country country, IImage basePicture)
+
+        public LicensePlate(Image<Bgr, Byte> basePicture)
+            : this("","",basePicture)
         {
-            _country = country;
-            BasePicture = basePicture;
+        }
+        public LicensePlate(string gps, string timestamp, Image<Bgr, Byte> image)
+        {
+            Gps = gps;
+            TimeStamp = timestamp;
+            Image = image;
         }
 
         public void Add(FoundCharacter foundCharacter)
@@ -37,7 +46,7 @@ namespace kentekenherkenning
         public bool IsValid() 
         {
             //compare amount of characters to country standard
-            if (characters.Count != _country.Characters)
+            if (characters.Count != Country.Characters)
                 return false;
 
 
