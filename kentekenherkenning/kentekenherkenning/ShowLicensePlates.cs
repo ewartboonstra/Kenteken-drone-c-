@@ -73,6 +73,11 @@ namespace kentekenherkenning
             Environment.Exit(0);
         }
 
+        private void Write(string description, string data)
+        {
+            InformationLabel.Text += description + ": " + data + "\r\n";
+        }
+
         //show image of selected item.
         
         private void VisualList_SelectedIndexChanged(object sender, EventArgs e)
@@ -83,6 +88,8 @@ namespace kentekenherkenning
                 LicensePlate designatedLicensePlate = LicensePlates.Find(lp => lp.Text == selectedItem);
                 IImage pictureToShow = designatedLicensePlate.Image;
                 PlatePictureBox.Image = pictureToShow;
+                Write("Time", designatedLicensePlate.TimeStamp);
+                Write("Gps", designatedLicensePlate.Gps);
             }
             catch (IndexOutOfRangeException)
             {
