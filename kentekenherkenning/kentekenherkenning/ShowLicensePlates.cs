@@ -23,12 +23,10 @@ namespace kentekenherkenning
         {
             InitializeComponent();
 
-
             Main = new MainForm(this);
             Main.Show();
 
         }
-
 
         public bool IsUnique(LicensePlate licensePlate)
         {

@@ -86,7 +86,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(647, 237);
+            this.ClientSize = new System.Drawing.Size(648, 242);
             this.Controls.Add(this.InformationLabel);
             this.Controls.Add(this.PlatePictureBox);
             this.Controls.Add(this.DeleteBtn);
