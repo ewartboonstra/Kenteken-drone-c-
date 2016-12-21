@@ -16,8 +16,8 @@ namespace kentekenherkenning
 {
     public partial class MainForm : Form
     {
-        private Image<Bgr, Byte> image;
-
+//        private Image<Bgr, Byte> image;
+        private LicensePlate CurrentPlate;
         ImageProcessor processor;
 
         Dictionary<string, Image> AugmentedRealityImages = new Dictionary<string, Image>();
@@ -80,10 +80,10 @@ namespace kentekenherkenning
             s.SetConnection();
             while (true)
             {
-                Image message = s.WaitForImage();
+                LicensePlate plate = s.WaitForImage();
 
-                Image<Bgr, byte> receivedImage = new Image<Bgr, byte>((Bitmap)message);
-                Invoke(new Action(() => image = receivedImage));
+//                Invoke(new Action(() => image = plate.Image));
+                Invoke(new Action(() => CurrentPlate = plate));
                 Invoke(new Action(ProcessFrame));
 
             }
@@ -120,8 +120,15 @@ namespace kentekenherkenning
         private void UpdateView(object sender, EventArgs e)
         {
 
+
             ProcessFrame();
 
+
+            if (cbShowBinarized.Checked)
+                ibMain.Image = processor.binarizedFrame;
+            else
+                ibMain.Image = CurrentPlate.Image;
+            Invalidate();        
 
         }
         /// <summary>
@@ -134,16 +141,20 @@ namespace kentekenherkenning
             {
                 try
                 {
+                    //change current country to check
+                    CurrentPlate.Country = country;
                     LoadTemplates(country.TemplateLocation);
-                    processor.ProcessImage(image);
-                    ibMain.Image = image;
+
+                    //process image
+                    processor.ProcessImage(CurrentPlate.Image);
+                    ibMain.Image = CurrentPlate.Image;
                 }
                 catch (Exception ex)
                 {
                     Console.WriteLine(ex.Message);
                 }
 
-                LicensePlate licensePlate = ProcessLicensePlate(country);
+                LicensePlate licensePlate = ProcessLicensePlate(CurrentPlate);
                
                 //add the license plate to the list
                 if (!licensePlate.IsValid())
@@ -171,7 +182,7 @@ namespace kentekenherkenning
             if (cbShowBinarized.Checked)
                 ibMain.Image = processor.binarizedFrame;
             else
-                ibMain.Image = image;
+                ibMain.Image = CurrentPlate.Image;
             Invalidate();
         }
 
@@ -215,14 +226,12 @@ namespace kentekenherkenning
         }
 
         /// <summary>
-        /// make a licenceplate of image
+        /// check licenseplate for characters
         /// </summary>
-        /// <param name="country">country to check licenceplate in</param>
+        /// <param name="plate"></param>
         /// <returns> Licenceplate found</returns>
-        private LicensePlate ProcessLicensePlate(Country country)
+        private LicensePlate ProcessLicensePlate(LicensePlate plate )
         {
-            LicensePlate licensePlate = new LicensePlate(country, image);
-
             lock (processor.foundTemplates)
                 foreach (FoundTemplateDesc found in processor.foundTemplates)
                 {
@@ -234,9 +243,9 @@ namespace kentekenherkenning
 
                     FoundCharacter foundCharacter = new FoundCharacter(p1, text, height);
 
-                    licensePlate.Add(foundCharacter);
+                    plate.Add(foundCharacter);
                 }
-            return licensePlate;
+            return plate;
         }
 
         /// <summary>
@@ -307,11 +316,12 @@ namespace kentekenherkenning
         /// </summary>
         private void btLoadImage_Click(object sender, EventArgs e)
         {
-            OpenFileDialog ofd = new OpenFileDialog();
-            ofd.Filter = "Image|*.bmp;*.png;*.jpg;*.jpeg";
+            OpenFileDialog ofd = new OpenFileDialog {Filter = "Image|*.bmp;*.png;*.jpg;*.jpeg"};
             if (ofd.ShowDialog(this) == DialogResult.OK)
             {
-                image = new Image<Bgr, byte>((Bitmap) Bitmap.FromFile(ofd.FileName));
+                Image<Bgr,byte> image = new Image<Bgr, byte>((Bitmap) Image.FromFile(ofd.FileName));
+                CurrentPlate = new LicensePlate(image);
+
                 ProcessFrame();
             }
         }
@@ -319,7 +329,9 @@ namespace kentekenherkenning
         private void MainForm_FormClosed(object sender, FormClosedEventArgs e)
         {
             Visible = false;
+
             
+
         }
     }
 }
