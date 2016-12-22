@@ -438,7 +438,6 @@
             this.ibMain.Size = new System.Drawing.Size(672, 364);
             this.ibMain.TabIndex = 2;
             this.ibMain.TabStop = false;
-            this.ibMain.Click += new System.EventHandler(this.ibMain_Click);
             this.ibMain.Paint += new System.Windows.Forms.PaintEventHandler(this.ibMain_Paint);
             // 
             // MainForm

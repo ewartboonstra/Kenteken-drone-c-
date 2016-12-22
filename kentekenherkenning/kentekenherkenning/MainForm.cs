@@ -98,10 +98,5 @@ namespace kentekenherkenning
         {
             Visible = false;
             }
-
-        private void ibMain_Click(object sender, EventArgs e)
-        {
-
-        }
     }
 }
