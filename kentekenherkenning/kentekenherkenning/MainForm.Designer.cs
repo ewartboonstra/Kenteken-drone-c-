@@ -50,7 +50,6 @@
             this.cbShowContours = new System.Windows.Forms.CheckBox();
             this.cbAdaptiveNoiseFilter = new System.Windows.Forms.CheckBox();
             this.cbShowBinarized = new System.Windows.Forms.CheckBox();
-            this.cbShowAngle = new System.Windows.Forms.CheckBox();
             this.cbBlur = new System.Windows.Forms.CheckBox();
             this.btLoadImage = new System.Windows.Forms.Button();
             this.label7 = new System.Windows.Forms.Label();
@@ -83,30 +82,6 @@
             pnSettings.Size = new System.Drawing.Size(672, 146);
             pnSettings.TabIndex = 3;
             // 
-
-            // cbShowBinarized
-            // 
-            this.cbShowBinarized.AutoSize = true;
-            this.cbShowBinarized.Location = new System.Drawing.Point(10, 76);
-            this.cbShowBinarized.Name = "cbShowBinarized";
-            this.cbShowBinarized.Size = new System.Drawing.Size(101, 17);
-            this.cbShowBinarized.TabIndex = 21;
-            this.cbShowBinarized.Text = "Show binarized ";
-            this.cbShowBinarized.UseVisualStyleBackColor = true;
-            this.cbShowBinarized.CheckedChanged += new System.EventHandler(this.UpdateView);
-            // 
-            // cbShowContours
-            // 
-            this.cbShowContours.AutoSize = true;
-            this.cbShowContours.Location = new System.Drawing.Point(9, 99);
-            this.cbShowContours.Name = "cbShowContours";
-            this.cbShowContours.Size = new System.Drawing.Size(97, 17);
-            this.cbShowContours.TabIndex = 20;
-            this.cbShowContours.Text = "Show contours";
-            this.cbShowContours.UseVisualStyleBackColor = true;
-            this.cbShowContours.CheckedChanged += new System.EventHandler(this.UpdateView);
-            // 
-
             // groupBox3
             // 
             this.groupBox3.Controls.Add(this.nudMaxACFdesc);
@@ -342,7 +317,6 @@
             this.groupBox1.Controls.Add(this.cbShowContours);
             this.groupBox1.Controls.Add(this.cbAdaptiveNoiseFilter);
             this.groupBox1.Controls.Add(this.cbShowBinarized);
-            this.groupBox1.Controls.Add(this.cbShowAngle);
             this.groupBox1.Controls.Add(this.cbBlur);
             this.groupBox1.Controls.Add(this.btLoadImage);
             this.groupBox1.Controls.Add(this.label7);
@@ -386,7 +360,7 @@
             this.cbShowContours.TabIndex = 20;
             this.cbShowContours.Text = "Show contours";
             this.cbShowContours.UseVisualStyleBackColor = true;
-            
+            this.cbShowContours.CheckedChanged += new System.EventHandler(this.cbAutoContrast_CheckedChanged);
             // 
             // cbAdaptiveNoiseFilter
             // 
@@ -410,18 +384,7 @@
             this.cbShowBinarized.TabIndex = 21;
             this.cbShowBinarized.Text = "Show binarized ";
             this.cbShowBinarized.UseVisualStyleBackColor = true;
-            
-            // 
-            // cbShowAngle
-            // 
-            this.cbShowAngle.AutoSize = true;
-            this.cbShowAngle.Location = new System.Drawing.Point(120, 99);
-            this.cbShowAngle.Name = "cbShowAngle";
-            this.cbShowAngle.Size = new System.Drawing.Size(87, 17);
-            this.cbShowAngle.TabIndex = 0;
-            this.cbShowAngle.Text = "Show angles";
-            this.cbShowAngle.UseVisualStyleBackColor = true;
-            
+            this.cbShowBinarized.CheckedChanged += new System.EventHandler(this.cbAutoContrast_CheckedChanged);
             // 
             // cbBlur
             // 
@@ -469,16 +432,6 @@
             // 
             // ibMain
             // 
-
-            this.cbShowAngle.AutoSize = true;
-            this.cbShowAngle.Location = new System.Drawing.Point(120, 99);
-            this.cbShowAngle.Name = "cbShowAngle";
-            this.cbShowAngle.Size = new System.Drawing.Size(87, 17);
-            this.cbShowAngle.TabIndex = 0;
-            this.cbShowAngle.Text = "Show angles";
-            this.cbShowAngle.UseVisualStyleBackColor = true;
-            this.cbShowAngle.CheckedChanged += new System.EventHandler(this.UpdateView);
-
             this.ibMain.Dock = System.Windows.Forms.DockStyle.Fill;
             this.ibMain.Location = new System.Drawing.Point(0, 0);
             this.ibMain.Name = "ibMain";
@@ -486,7 +439,6 @@
             this.ibMain.TabIndex = 2;
             this.ibMain.TabStop = false;
             this.ibMain.Paint += new System.Windows.Forms.PaintEventHandler(this.ibMain_Paint);
-
             // 
             // MainForm
             // 
@@ -520,7 +472,6 @@
         #endregion
 
         private Emgu.CV.UI.ImageBox ibMain;
-        private System.Windows.Forms.CheckBox cbShowAngle;
         private System.Windows.Forms.CheckBox cbAutoContrast;
         private System.Windows.Forms.Button btLoadImage;
         private System.Windows.Forms.CheckBox cbAllowAngleMore45;

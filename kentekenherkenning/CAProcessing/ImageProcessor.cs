@@ -24,6 +24,8 @@ namespace ContourAnalysisNS
     public class ImageProcessor
     {
         //settings
+        public bool showBinarized = false;
+        public bool showContours = false;
         public bool equalizeHist = false;
         public bool noiseFilter = false;
         public int cannyThreshold = 50;

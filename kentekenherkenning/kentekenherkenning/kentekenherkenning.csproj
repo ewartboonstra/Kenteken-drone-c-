@@ -79,6 +79,7 @@
     </Compile>
     <Compile Include="MoreLinq\MaxBy.cs" />
     <Compile Include="MoreLinq\MinBy.cs" />
+    <Compile Include="PlateProcessor.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ServerConnection.cs" />
