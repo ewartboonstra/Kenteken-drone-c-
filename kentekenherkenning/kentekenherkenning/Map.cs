@@ -12,13 +12,30 @@ namespace kentekenherkenning
 {
     public partial class Map : Form
     {
-        private List<LicensePlate> licensePlate; 
-
-        public Map()
+        private Dictionary<string, Point> licensePlatePoints; //via coördinates
+        
+        public Map(ShowLicensePlates licensePlateform)
         {
             InitializeComponent();
+
+            var LicensePlates = licensePlateform.LicensePlates;
+
+            //determine scale
+            foreach (var licensePlate in LicensePlates)
+            {
+                                                                                                                 
+            }
         }
 
         
+
+        //bepaal de schaal
+
+        //breng in kaart waar op de kaart het moet staan
+
+        //teken het
+
+        //zorg ervoor dat het klikken erop werkt
+                                                    
     }
 }

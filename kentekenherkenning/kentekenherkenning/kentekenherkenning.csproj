@@ -65,9 +65,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DoublePoint.cs" />
     <Compile Include="Exceptions\LicensePlateNotUnique.cs" />
     <Compile Include="FoundCharacter.cs" />
     <Compile Include="Country.cs" />
+    <Compile Include="GpsPoint.cs" />
     <Compile Include="LicensePlate.cs" />
     <Compile Include="Exceptions\LicensePlateException.cs" />
     <Compile Include="MainForm.cs">
