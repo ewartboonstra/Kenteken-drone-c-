@@ -14,7 +14,7 @@ namespace kentekenherkenning
     public class GpsPoint 
     {
         private string text;
-        private DoublePoint toPoint;
+        public DoublePoint toPoint { get; private set; }
 
         public GpsPoint(string Gps) 
         {
@@ -29,8 +29,10 @@ namespace kentekenherkenning
         {
             
             var coordinates = new string[2];
-
-            gpsString = gpsString.Trim();
+            coordinates[0] = "";
+            coordinates[1] = "";
+            gpsString = gpsString.Replace(" ", ""); //remove all spaces from the Gps string
+            
             var latitudeIndex = gpsString.IndexOf('N');
             if (latitudeIndex == -1)
             {
@@ -52,41 +54,47 @@ namespace kentekenherkenning
             }
 
             //get the number after the 'N' and 'E' (or 'S' and 'W')
-            for (var i = latitudeIndex; i < gpsString.Length;i++)
+            //any '.' or ',' will be replaced by ',' otherwise the parse to double method won't work.
+            for (var i = latitudeIndex + 1; i < gpsString.Length;i++)
             {
+                Console.WriteLine("latitude index loop bereikt");
                 if (char.IsNumber(gpsString[i]))
                 {
                     coordinates[0] += gpsString[i];
                 }
                 else
                 {
-                    if (gpsString[i] != '.')
+                    if (gpsString[i] == '.' || gpsString[i] == ',')
+                    {
+                        coordinates[0] += ",";
+                    }
+                    else if(gpsString[i] != '.' || gpsString[i] == ' ')
                     {
                         break;
                     }
                 }
             }
 
-            for (var i = longitudeIndex; i <= gpsString.Length; i++)
+            for (var i = longitudeIndex + 1; i <= gpsString.Length; i++)
             {
+                Console.WriteLine("longitude index loop bereikt");
                 if (char.IsNumber(gpsString[i]))
                 {
                     coordinates[1] += gpsString[i];
                 }
                 else
                 {
-                    if (gpsString[i] != '.')
+                    if(gpsString[i] == '.' || gpsString[i] == ',')
+                    {
+                        coordinates[1] += ",";
+                    }
+                    else if (gpsString[i] != '.' || gpsString[i] == ' ')
                     {
                         break;
                     }
                 }
             }
-
-
             
-
-
-
             return new DoublePoint(double.Parse(coordinates[0]), double.Parse(coordinates[1]));
         }
 
