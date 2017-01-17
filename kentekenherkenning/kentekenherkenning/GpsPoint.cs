@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-
 using System.Windows;
 using System.Linq;
 using System.Text;
@@ -8,7 +7,6 @@ using System.Threading.Tasks;
 
 namespace kentekenherkenning
 {
-
     /// <summary>
     /// Input: string in constructor
     /// Output: doubles in 'toPoint';
@@ -22,6 +20,7 @@ namespace kentekenherkenning
         {
             this.text = Gps;
 
+            toPoint = ToGPSPoint(Gps);
         }
 
 
@@ -36,12 +35,20 @@ namespace kentekenherkenning
             if (latitudeIndex == -1)
             {
                 latitudeIndex = gpsString.IndexOf('Z');
+                if (latitudeIndex == -1)
+                {
+                    throw new ArgumentException("Invalid GPS string given");
+                }
             }
 
             var longitudeIndex = gpsString.IndexOf('E');
             if (longitudeIndex == -1)
             {
                 longitudeIndex = gpsString.IndexOf('W');
+                if (longitudeIndex == -1)
+                {
+                    throw new ArgumentException("Invalid GPS string given");
+                }
             }
 
             //get the number after the 'N' and 'E' (or 'S' and 'W')
