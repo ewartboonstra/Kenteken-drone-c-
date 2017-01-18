@@ -18,7 +18,7 @@ namespace kentekenherkenning
         private const int AllowedDifference = 50;
         public Country Country { get; set; }
 
-        private List<FoundCharacter> characters = new List<FoundCharacter>();
+        public List<FoundCharacter> characters { get; set; }= new List<FoundCharacter>();
         public string Text { get; set; }= "";
 
         public Image<Bgr, Byte> Image {get; private set;}

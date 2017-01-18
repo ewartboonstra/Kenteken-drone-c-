@@ -296,7 +296,7 @@
             this.nudMinContourArea.Size = new System.Drawing.Size(78, 20);
             this.nudMinContourArea.TabIndex = 9;
             this.nudMinContourArea.Value = new decimal(new int[] {
-            10,
+            400,
             0,
             0,
             0});
@@ -332,7 +332,7 @@
             // 
             this.nudAdaptiveThBlockSize.Location = new System.Drawing.Point(120, 56);
             this.nudAdaptiveThBlockSize.Maximum = new decimal(new int[] {
-            400,
+            300,
             0,
             0,
             0});
@@ -345,7 +345,7 @@
             this.nudAdaptiveThBlockSize.Size = new System.Drawing.Size(78, 20);
             this.nudAdaptiveThBlockSize.TabIndex = 11;
             this.nudAdaptiveThBlockSize.Value = new decimal(new int[] {
-            4,
+            300,
             0,
             0,
             0});

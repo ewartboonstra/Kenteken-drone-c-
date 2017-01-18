@@ -73,7 +73,7 @@ namespace kentekenherkenning
 
         private void Write(string description, string data)
         {
-            InformationLabel.Text += description + ": " + data + "\r\n";
+            InfoLabel.Text += description + ": " + data + "\r\n";
         }
 
         //show image of selected item.
@@ -85,6 +85,7 @@ namespace kentekenherkenning
                 LicensePlate designatedLicensePlate = LicensePlates.Find(lp => lp.Text == selectedItem);
                 IImage pictureToShow = designatedLicensePlate.Image;
                 PlatePictureBox.Image = pictureToShow;
+                InfoLabel.Text = "";
                 Write("Time", designatedLicensePlate.TimeStamp);
                 Write("Gps", designatedLicensePlate.Gps);
             }
@@ -101,6 +102,16 @@ namespace kentekenherkenning
                 Main = new MainForm(this);
             }
             Main.Visible = true;
+        }
+
+        private void ShowLicensePlates_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        private void PlatePictureBox_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

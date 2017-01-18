@@ -15,7 +15,7 @@ namespace kentekenherkenning
 {
     public class PlateProcessor
     {
-        private LicensePlate CurrentPlate;
+        public LicensePlate CurrentPlate { get; set; }
 
         /// <summary>
         /// current image with modified view.
@@ -47,9 +47,7 @@ namespace kentekenherkenning
             Processor = processor;
             InitializeCountries();
 
-            //start server
-            ServerThread = new Thread(new ThreadStart(RunConnectionServer));
-            ServerThread.Start();
+
         }
         /// <summary>
         /// load a list of default countries in the list
@@ -63,21 +61,7 @@ namespace kentekenherkenning
             CountryList.Add(netherlands);
         }
 
-        /// <summary>
-        /// Start connection to server on a new thread
-        /// </summary>
-        private void RunConnectionServer()
-        {
-            ServerConnection s = new ServerConnection();
-            s.SetConnection();
-            while (true)
-            {
-                LicensePlate plate = s.WaitForImage();
-//                Invoke(new Action(() => CurrentPlate = plate));
-//                Invoke(new Action(ProcessFrame));
-
-            }
-        }
+      
 
         private void LoadTemplates(string fileName)
         {
@@ -115,7 +99,7 @@ namespace kentekenherkenning
             {
                 try
                 {
-
+                    CurrentPlate.characters = new List<FoundCharacter>();
                     //change current country to check
                     CurrentPlate.Country = country;
                     LoadTemplates(country.TemplateLocation);

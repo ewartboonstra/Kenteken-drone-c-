@@ -33,11 +33,9 @@
             this.SelectAllBtn = new System.Windows.Forms.Button();
             this.DeleteBtn = new System.Windows.Forms.Button();
             this.PlatePictureBox = new Emgu.CV.UI.ImageBox();
-
             this.AdvancedBtn = new System.Windows.Forms.Button();
-
             this.InformationLabel = new System.Windows.Forms.Label();
-
+            this.InfoLabel = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.PlatePictureBox)).BeginInit();
             this.SuspendLayout();
             // 
@@ -77,8 +75,8 @@
             this.PlatePictureBox.Size = new System.Drawing.Size(364, 154);
             this.PlatePictureBox.TabIndex = 4;
             this.PlatePictureBox.TabStop = false;
+            this.PlatePictureBox.Click += new System.EventHandler(this.PlatePictureBox_Click);
             // 
-
             // AdvancedBtn
             // 
             this.AdvancedBtn.Location = new System.Drawing.Point(559, 202);
@@ -88,7 +86,7 @@
             this.AdvancedBtn.Text = "Advanced...";
             this.AdvancedBtn.UseVisualStyleBackColor = true;
             this.AdvancedBtn.Click += new System.EventHandler(this.Advanced_Click);
-
+            // 
             // InformationLabel
             // 
             this.InformationLabel.AutoSize = true;
@@ -96,19 +94,23 @@
             this.InformationLabel.Name = "InformationLabel";
             this.InformationLabel.Size = new System.Drawing.Size(0, 13);
             this.InformationLabel.TabIndex = 5;
-
+            // 
+            // InfoLabel
+            // 
+            this.InfoLabel.AutoSize = true;
+            this.InfoLabel.Location = new System.Drawing.Point(274, 166);
+            this.InfoLabel.Name = "InfoLabel";
+            this.InfoLabel.Size = new System.Drawing.Size(0, 13);
+            this.InfoLabel.TabIndex = 6;
             // 
             // ShowLicensePlates
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-
             this.ClientSize = new System.Drawing.Size(647, 237);
+            this.Controls.Add(this.InfoLabel);
             this.Controls.Add(this.AdvancedBtn);
-
-            
             this.Controls.Add(this.InformationLabel);
-
             this.Controls.Add(this.PlatePictureBox);
             this.Controls.Add(this.DeleteBtn);
             this.Controls.Add(this.SelectAllBtn);
@@ -116,6 +118,7 @@
             this.Name = "ShowLicensePlates";
             this.Text = "Discovered License Plates";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.ShowLicensePlates_FormClosing);
+            this.Load += new System.EventHandler(this.ShowLicensePlates_Load);
             ((System.ComponentModel.ISupportInitialize)(this.PlatePictureBox)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -132,6 +135,6 @@
         private System.Windows.Forms.Button AdvancedBtn;
 
         private System.Windows.Forms.Label InformationLabel;
-
+        private System.Windows.Forms.Label InfoLabel;
     }
 }

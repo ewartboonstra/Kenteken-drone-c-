@@ -9,6 +9,7 @@ using Emgu.CV.Structure;
 using ContourAnalysisNS;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.IO;
+using System.Threading;
 
 
 namespace kentekenherkenning
@@ -17,7 +18,7 @@ namespace kentekenherkenning
     {
         private PlateProcessor plateProcessor;
         private ImageProcessor processor;
-
+        private Thread ServerThread;
         private Font font;
 
         public MainForm(ShowLicensePlates licensePlateForm)
@@ -29,6 +30,27 @@ namespace kentekenherkenning
 
             
             plateProcessor.Changed += UpdateImage;
+
+
+            //start server
+            ServerThread = new Thread(new ThreadStart(RunConnectionServer));
+            ServerThread.Start();
+        }
+
+        /// <summary>
+        /// Start connection to server on a new thread
+        /// </summary>
+        private void RunConnectionServer()
+        {
+            ServerConnection s = new ServerConnection();
+            s.SetConnection();
+            while (true)
+            {
+                LicensePlate plate = s.WaitForImage();
+                Invoke(new Action(() => plateProcessor.CurrentPlate = plate));
+                Invoke(new Action(plateProcessor.ProcessFrame));
+
+            }
         }
 
         public void UpdateImage()

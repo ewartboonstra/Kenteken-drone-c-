@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Drawing;
+using System.Drawing.Printing;
 using System.IO;
 using System.Text;
 using Emgu.CV;
@@ -54,10 +55,12 @@ namespace kentekenherkenning
 
             JObject obj = JObject.Parse(message);
 
+            Console.WriteLine(obj["Picture"].ToString());
             Image<Bgr, Byte> picture = new Image<Bgr, byte>((Bitmap)Base64ToImage(obj["Picture"].ToString()));
             string timestamp = obj["Timestamp"].ToString();
             string gps = obj["Gps"].ToString();
             LicensePlate plate = new LicensePlate(gps,timestamp,picture);
+            Console.WriteLine("succes");
             return plate;
         }
 
@@ -71,10 +74,9 @@ namespace kentekenherkenning
             // Convert base 64 string to byte[]
             byte[] imageBytes = Convert.FromBase64String(base64String);
             // Convert byte[] to Image
-            using (var ms = new MemoryStream(imageBytes, 0, imageBytes.Length))
+            using (MemoryStream mStream = new MemoryStream(imageBytes))
             {
-                Image image = Image.FromStream(ms, true);
-                return image;
+                return Image.FromStream(mStream);
             }
         }
     }
