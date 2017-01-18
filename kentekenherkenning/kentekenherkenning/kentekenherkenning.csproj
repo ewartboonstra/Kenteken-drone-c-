@@ -5,7 +5,7 @@
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{E2C17601-598E-42FC-B898-BF7AAEF0D3CD}</ProjectGuid>
-    <OutputType>WinExe</OutputType>
+    <OutputType>Exe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>kentekenherkenning</RootNamespace>
     <AssemblyName>kentekenherkenning</AssemblyName>
@@ -49,6 +49,10 @@
     <Reference Include="Emgu.Util">
       <HintPath>..\CAProcessing\Emgu.Util.dll</HintPath>
     </Reference>
+    <Reference Include="Newtonsoft.Json, Version=9.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Newtonsoft.Json.9.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -62,10 +66,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ConsoleKeepTrackUtilities.cs" />
+    <Compile Include="Exceptions\LicensePlateNotUnique.cs" />
     <Compile Include="FoundCharacter.cs" />
     <Compile Include="Country.cs" />
     <Compile Include="LicensePlate.cs" />
+    <Compile Include="Exceptions\LicensePlateException.cs" />
     <Compile Include="MainForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -74,6 +79,7 @@
     </Compile>
     <Compile Include="MoreLinq\MaxBy.cs" />
     <Compile Include="MoreLinq\MinBy.cs" />
+    <Compile Include="PlateProcessor.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ServerConnection.cs" />
@@ -99,6 +105,7 @@
     <EmbeddedResource Include="ShowLicensePlates.resx">
       <DependentUpon>ShowLicensePlates.cs</DependentUpon>
     </EmbeddedResource>
+    <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>

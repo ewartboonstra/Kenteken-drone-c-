@@ -1,8 +1,13 @@
 ﻿using System;
 using System.Drawing;
+using System.Drawing.Printing;
 using System.IO;
 using System.Text;
+using Emgu.CV;
+using Emgu.CV.Structure;
 using ZeroMQ;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 
 namespace kentekenherkenning
 {
@@ -19,7 +24,6 @@ namespace kentekenherkenning
         {
             Ip = "127.0.0.1";
             Port = 9023;
-
         }
         /// <summary>
         /// Start a server which python can connect to
@@ -45,10 +49,19 @@ namespace kentekenherkenning
         /// Keep server idle until image is received
         /// </summary>
         /// <returns>Image</returns>
-        public Image WaitForImage()
+        public LicensePlate WaitForImage()
         {
             string message = socket.Receive(Encoding.UTF8);
-            return Base64ToImage(message);
+
+            JObject obj = JObject.Parse(message);
+
+            Console.WriteLine(obj["Picture"].ToString());
+            Image<Bgr, Byte> picture = new Image<Bgr, byte>((Bitmap)Base64ToImage(obj["Picture"].ToString()));
+            string timestamp = obj["Timestamp"].ToString();
+            string gps = obj["Gps"].ToString();
+            LicensePlate plate = new LicensePlate(gps,timestamp,picture);
+            Console.WriteLine("succes");
+            return plate;
         }
 
         /// <summary>
@@ -61,10 +74,9 @@ namespace kentekenherkenning
             // Convert base 64 string to byte[]
             byte[] imageBytes = Convert.FromBase64String(base64String);
             // Convert byte[] to Image
-            using (var ms = new MemoryStream(imageBytes, 0, imageBytes.Length))
+            using (MemoryStream mStream = new MemoryStream(imageBytes))
             {
-                Image image = Image.FromStream(ms, true);
-                return image;
+                return Image.FromStream(mStream);
             }
         }
     }
