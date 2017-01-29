@@ -17,7 +17,7 @@ namespace kentekenherkenning
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new ShowLicensePlates());
+            Application.Run(new ShowLicensePlates());            
         }
     }
 }
