@@ -18,6 +18,8 @@ namespace kentekenherkenning
     {
         public List<LicensePlate> LicensePlates { get; set; }= new List<LicensePlate>();
         private MainForm Main;
+        private Map Map;
+        
 
         public ShowLicensePlates()
         {
@@ -25,6 +27,8 @@ namespace kentekenherkenning
 
             Main = new MainForm(this);
             Main.Show();
+            Map = new kentekenherkenning.Map(this);
+
 
         }
 
@@ -93,6 +97,11 @@ namespace kentekenherkenning
             {
                 PlatePictureBox.Image = null;
             }
+        }
+
+        private void refreshMap_Click(object sender, EventArgs e)
+        {
+            Map.update();
         }
     }
 }

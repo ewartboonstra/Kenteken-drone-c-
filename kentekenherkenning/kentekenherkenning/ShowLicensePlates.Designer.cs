@@ -34,6 +34,7 @@
             this.DeleteBtn = new System.Windows.Forms.Button();
             this.PlatePictureBox = new Emgu.CV.UI.ImageBox();
             this.InformationLabel = new System.Windows.Forms.Label();
+            this.refreshMap = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.PlatePictureBox)).BeginInit();
             this.SuspendLayout();
             // 
@@ -82,11 +83,22 @@
             this.InformationLabel.Size = new System.Drawing.Size(0, 13);
             this.InformationLabel.TabIndex = 5;
             // 
+            // refreshMap
+            // 
+            this.refreshMap.Location = new System.Drawing.Point(509, 199);
+            this.refreshMap.Name = "refreshMap";
+            this.refreshMap.Size = new System.Drawing.Size(75, 23);
+            this.refreshMap.TabIndex = 6;
+            this.refreshMap.Text = "refreshMap";
+            this.refreshMap.UseVisualStyleBackColor = true;
+            this.refreshMap.Click += new System.EventHandler(this.refreshMap_Click);
+            // 
             // ShowLicensePlates
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(648, 242);
+            this.Controls.Add(this.refreshMap);
             this.Controls.Add(this.InformationLabel);
             this.Controls.Add(this.PlatePictureBox);
             this.Controls.Add(this.DeleteBtn);
@@ -108,5 +120,6 @@
         private System.Windows.Forms.Button DeleteBtn;
         private Emgu.CV.UI.ImageBox PlatePictureBox;
         private System.Windows.Forms.Label InformationLabel;
+        private System.Windows.Forms.Button refreshMap;
     }
 }

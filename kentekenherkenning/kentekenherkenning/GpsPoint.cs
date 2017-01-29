@@ -57,7 +57,6 @@ namespace kentekenherkenning
             //any '.' or ',' will be replaced by ',' otherwise the parse to double method won't work.
             for (var i = latitudeIndex + 1; i < gpsString.Length;i++)
             {
-                Console.WriteLine("latitude index loop bereikt");
                 if (char.IsNumber(gpsString[i]))
                 {
                     coordinates[0] += gpsString[i];
@@ -76,8 +75,7 @@ namespace kentekenherkenning
             }
 
             for (var i = longitudeIndex + 1; i <= gpsString.Length; i++)
-            {
-                Console.WriteLine("longitude index loop bereikt");
+            {                
                 if (char.IsNumber(gpsString[i]))
                 {
                     coordinates[1] += gpsString[i];
